@@ -90,5 +90,4 @@ int main(){
     Post postare1 = {151, 345, "lifestyle"};
     Account cont1 = {"jane.doe12", 345, 789, 6, "children"};
     Manager manager = {"John Smith"};
-
 }
