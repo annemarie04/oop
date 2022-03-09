@@ -72,7 +72,7 @@ class Manager {
 public:
     //Constructor de Initiere
 //    Manager(const std::string &name, const std::vector<Account> &accounts) : name(name), accounts(accounts) {}
-    Manager(const std::string &name) : name(name) {}
+    Manager(const std::string &nume) : name(nume) {}
     //Operator =
     bool operator==(const Manager &mg) const {
         return name == mg.name;
@@ -89,5 +89,5 @@ public:
 int main(){
     Post postare1 = {151, 345, "lifestyle"};
     Account cont1 = {"jane.doe12", 345, 789, 6, "children"};
-    Manager manager = {"John Smith"};
+    Manager man = {"John Smith"};
 }
