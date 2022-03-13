@@ -49,7 +49,7 @@ public:
         this->hashtags.push_back(hashtag);
     }
 
-    void change_theme(std::string new_theme){
+    void change_theme(std::string const new_theme){
         this->theme = new_theme;
     }
 
@@ -123,7 +123,7 @@ public:
         ++this->no_posts;
     }
 
-    void change_audience(std::string new_target) {
+    void change_audience(std::string const new_target) {
         this->target_audience = new_target;
     }
 
@@ -173,7 +173,7 @@ public:
     ~Manager() {}
 
     //setters
-    void change_name(std::string new_name){
+    void change_name(std::string const new_name){
         this->name = new_name;
     }
 
@@ -216,6 +216,7 @@ int main() {
     // Functionalitati cont
     std::cout <<cont1;
     cont1.add_post(Post{150, 345, {"food", "kitchen", "healthy"}, "cooking"});
+    cont1.get_posts();
 
     std::cout << cont1.get_followers() << std::endl;
     std::cout << cont1.get_following() << std::endl;
