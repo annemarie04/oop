@@ -231,7 +231,6 @@ int main() {
     // Functionalitati manager
     std::cout << man.get_name();
     man.change_name("Jane Smith");
-
     man.add_account(Account{"john.not", 100, 1000, 3, "teenagers", postari});
     std::cout <<man;
 }
