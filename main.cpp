@@ -49,7 +49,7 @@ public:
         this->hashtags.push_back(hashtag);
     }
 
-    void change_theme(std::string const new_theme){
+    void change_theme(std::string const& new_theme){
         this->theme = new_theme;
     }
 
@@ -123,7 +123,7 @@ public:
         ++this->no_posts;
     }
 
-    void change_audience(std::string const new_target) {
+    void change_audience(std::string const& new_target) {
         this->target_audience = new_target;
     }
 
