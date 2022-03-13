@@ -173,7 +173,7 @@ public:
     ~Manager() {}
 
     //setters
-    void change_name(std::string const new_name){
+    void change_name(std::string const& new_name){
         this->name = new_name;
     }
 
