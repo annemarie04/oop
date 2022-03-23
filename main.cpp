@@ -45,22 +45,24 @@ public:
         }
         return os;
     }
+
     // Constructor Copiere
-    Post(const Post& other) : no_likes{other.no_likes}, no_comments{other.no_comments}, hashtags{other.hashtags}, theme{other.theme} {}
+    Post(const Post &other) : no_likes{other.no_likes}, no_comments{other.no_comments}, hashtags{other.hashtags},
+                              theme{other.theme} {}
 
     // Destructor
     ~Post() {}
 
     //setter
-    void increment_no_likes() {
-        ++this->no_likes;
-    }
+//    void increment_no_likes() {
+//        ++this->no_likes;
+//    }
+//
+//    void decrement_no_likes() {
+//        --this->no_likes;
+//    }
 
-    void decrement_no_likes() {
-        --this->no_likes;
-    }
-
-    void add_hashtag(std::string hashtag){
+    void add_hashtag(std::string hashtag) {
         this->hashtags.push_back(hashtag);
     }
 
@@ -285,9 +287,9 @@ int main() {
     post2 = postari[1];
     std::cout << post2;
     // Functionalitati postare
-    postari[0].do_like();
+//    postari[0].do_like();
     std::cout << postari[0].get_likes() << std::endl;
-    postari[0].do_unlike();
+//    postari[0].do_unlike();
     std::cout << postari[0].get_likes() << std::endl;
 
     for (std::string hashtag : postari[0].get_hashtags()) {
