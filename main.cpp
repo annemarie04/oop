@@ -311,6 +311,7 @@ int main() {
     cont1.do_like(&postari[4]);
     cont1.do_like(&postari[0]);
     cont2.do_like(&postari[0]);
+    cont1.do_unlike(&postari[0]);
 //    cont1.parcurgere_likes();
     std::cout << postari[0];
 
