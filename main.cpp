@@ -164,12 +164,12 @@ public:
         post_u->decrement_no_likes();
     }
 
-    void parcurgere_likes() {
-        std::map<Post *, bool>::iterator it = likes.begin();
-        for (; it != likes.end(); it++) {
-            std::cout << *it->first << " :: " << it->second << std::endl;
-        }
-    }
+//    void parcurgere_likes() {
+//        std::map<Post *, bool>::iterator it = likes.begin();
+//        for (; it != likes.end(); it++) {
+//            std::cout << *it->first << " :: " << it->second << std::endl;
+//        }
+//    }
 
     void new_follower() {
         ++this->followers;
@@ -311,57 +311,57 @@ int main() {
     cont1.do_like(&postari[4]);
     cont1.do_like(&postari[0]);
     cont2.do_like(&postari[0]);
-    cont1.parcurgere_likes();
+//    cont1.parcurgere_likes();
     std::cout << postari[0];
 
-//    std::cout << cont1.get_top_post() << "\n";
-//    std::cout << man.get_top_account() << "\n";
-//    std::cout << cont1.find_post_by_theme("crypto");
-//    std::cout << man.find_account_by_username("jack_sparrow");
-//    Post post2{150, 345, {"crypto", "btc", "eth"}, "crypto"};
+    std::cout << cont1.get_top_post() << "\n";
+    std::cout << man.get_top_account() << "\n";
+    std::cout << cont1.find_post_by_theme("crypto");
+    std::cout << man.find_account_by_username("jack_sparrow");
+    Post post2{150, 345, {"crypto", "btc", "eth"}, "crypto"};
+
+    post2 = postari[1];
+    std::cout << post2;
+    // Functionalitati postare
+//    postari[0].do_like();
+    std::cout << postari[0].get_likes() << std::endl;
+//    postari[0].do_unlike();
+    std::cout << postari[0].get_likes() << std::endl;
+
+    for (std::string hashtag : postari[0].get_hashtags()) {
+        std::cout << hashtag << " ";
+    }
+    std::cout << cont1;
+    std::cout << '\n';
+    postari[0].add_hashtag("newww");
+    postari[0].get_hashtags();
+    std::cout << '\n';
+
+    std::cout << postari[1].get_theme() << std::endl;
+    postari[1].change_theme("hollywood");
+    std::cout << postari[1].get_theme() << std::endl;
 //
-//    post2 = postari[1];
-//    std::cout << post2;
-//    // Functionalitati postare
-////    postari[0].do_like();
-//    std::cout << postari[0].get_likes() << std::endl;
-////    postari[0].do_unlike();
-//    std::cout << postari[0].get_likes() << std::endl;
 //
-//    for (std::string hashtag : postari[0].get_hashtags()) {
-//        std::cout << hashtag << " ";
-//    }
-//    std::cout << cont1;
-//    std::cout << '\n';
-//    postari[0].add_hashtag("newww");
-//    postari[0].get_hashtags();
-//    std::cout << '\n';
+//    // Functionalitati cont
+    std::cout << cont1;
+    cont1.add_post(Post{150, 345, {"food", "kitchen", "healthy"}, "cooking"});
+    cont1.get_posts();
 //
-//    std::cout << postari[1].get_theme() << std::endl;
-//    postari[1].change_theme("hollywood");
-//    std::cout << postari[1].get_theme() << std::endl;
-////
-////
-////    // Functionalitati cont
-//    std::cout << cont1;
-//    cont1.add_post(Post{150, 345, {"food", "kitchen", "healthy"}, "cooking"});
-//    cont1.get_posts();
-////
-//    std::cout << cont1.get_followers() << std::endl;
-//    std::cout << cont1.get_following() << std::endl;
-//    cont1.new_follower();
-//    cont1.new_following();
-//    std::cout << cont1.get_followers() << std::endl;
-//    std::cout << cont1.get_following() << std::endl;
-////
-//    std::cout << cont1.get_audience() << std::endl;
-//    cont1.change_audience("girls");
-//    std::cout << cont1.get_audience() << std::endl;
-////
-////    // Functionalitati manager
-//    std::cout << man.get_name();
-//    man.change_name("Jane Smith");
-//    man.add_account(Account{"john.not", 100, 1000, "teenagers", postari});
-//    std::cout << man;
+    std::cout << cont1.get_followers() << std::endl;
+    std::cout << cont1.get_following() << std::endl;
+    cont1.new_follower();
+    cont1.new_following();
+    std::cout << cont1.get_followers() << std::endl;
+    std::cout << cont1.get_following() << std::endl;
+//
+    std::cout << cont1.get_audience() << std::endl;
+    cont1.change_audience("girls");
+    std::cout << cont1.get_audience() << std::endl;
+//
+//    // Functionalitati manager
+    std::cout << man.get_name();
+    man.change_name("Jane Smith");
+    man.add_account(Account{"john.not", 100, 1000, "teenagers", postari});
+    std::cout << man;
 
 }
