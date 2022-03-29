@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include<map>
+//#include<map>
 #include<algorithm>
 
 
@@ -27,11 +27,11 @@ public:
         no_likes = other.no_likes;
         no_comments = other.no_comments;
         theme = other.theme;
-
-        hashtags.clear();
-        for (std::string hashtag : other.hashtags) {
-            hashtags.push_back(hashtag);
-        }
+        std::copy(other.hashtags.begin(), other.hashtags.end(), hashtags.begin());
+//        hashtags.clear();
+//        for (std::string hashtag : other.hashtags) {
+//            hashtags.push_back(hashtag);
+//        }
         return *this;
     }
 
@@ -106,10 +106,11 @@ public:
         following = other.following;
         target_audience = other.target_audience;
 
-        posts.clear();
-        for (Post post : other.posts) {
-            posts.push_back(post);
-        }
+        std::copy(other.posts.begin(), other.posts.end(), posts.begin());
+//        posts.clear();
+//        for (Post post : other.posts) {
+//            posts.push_back(post);
+//        }
         return *this;
     }
 
@@ -210,7 +211,7 @@ class Manager {
     std::vector<Account> accounts;
 public:
     //Constructor de Initiere
-    Manager(const std::string &name, const std::vector<Account> &accounts) : name(name), accounts(accounts) {}
+    Manager(const std::string &name, std::vector<Account> &accounts) : name(name), accounts(accounts) {}
 
     //Operator == (de egalitate)
     bool operator==(const Manager &mg) const {
