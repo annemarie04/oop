@@ -211,7 +211,7 @@ class Manager {
     std::vector<Account> accounts;
 public:
     //Constructor de Initiere
-    Manager(const std::string &name, std::vector<Account> &accounts) : name(name), accounts(accounts) {}
+    Manager(const std::string &name, const std::vector<Account> &accounts) : name(name), accounts(accounts) {}
 
     //Operator == (de egalitate)
     bool operator==(const Manager &mg) const {
