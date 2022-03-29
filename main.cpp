@@ -99,20 +99,16 @@ public:
             std::vector<Post> &posts) : username(username), followers(followers), following(following),
                                         target_audience(targetAudience), posts(posts) {}
 
-    // Operator =
-    Account &operator=(const Account &other) {
-        username = other.username;
-        followers = other.followers;
-        following = other.following;
-        target_audience = other.target_audience;
-
-        std::copy(other.posts.begin(), other.posts.end(), posts.begin());
-//        posts.clear();
-//        for (Post post : other.posts) {
-//            posts.push_back(post);
-//        }
-        return *this;
-    }
+//    // Operator =
+//    Account &operator=(const Account &other) {
+//        username = other.username;
+//        followers = other.followers;
+//        following = other.following;
+//        target_audience = other.target_audience;
+//
+//        std::copy(other.posts.begin(), other.posts.end(), posts.begin());
+//        return *this;
+//    }
 
     // Operator == (de egalitate)
     bool operator==(const Account &cont) const {
