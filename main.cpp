@@ -48,6 +48,7 @@ int main() {
     for (std::string hashtag : postari[0].get_hashtags()) {
         std::cout << hashtag << " ";
     }
+
     std::cout << cont1;
     std::cout << '\n';
     postari[0].add_hashtag("newww");
