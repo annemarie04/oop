@@ -37,7 +37,7 @@ void Manager::change_name(std::string const &new_name) {
     this->name = new_name;
 }
 
-void Manager::add_account(Account new_account) {
+void Manager::add_account(const Account &new_account) {
     this->accounts.push_back(new_account);
 }
 

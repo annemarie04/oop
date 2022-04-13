@@ -19,7 +19,7 @@ public:
     // Constructor de Initiere
     Post(int noLikes, int noComments, const std::vector<std::string> &hashtags, const std::string &theme);
 
-    // Operator ==(de egalitate)
+    // Operator ==(de verificare)
     bool operator==(const Post &postare) const;
 
     // Operator <

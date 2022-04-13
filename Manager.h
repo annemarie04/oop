@@ -19,7 +19,7 @@ public:
     //Constructor de Initiere
     Manager(const std::string &name, const std::vector<Account> &accounts);
 
-    //Operator == (de egalitate)
+    //Operator == (de verificare)
     bool operator==(const Manager &mg) const;
 
     // Operator <<
@@ -31,7 +31,7 @@ public:
     //setters
     void change_name(std::string const &new_name);
 
-    void add_account(Account new_account);
+    void add_account(const Account &new_account);
 
     //getters
     std::string get_name();

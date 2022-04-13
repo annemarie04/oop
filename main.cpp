@@ -2,9 +2,9 @@
 #include <vector>
 #include<map>
 #include<algorithm>
-#include "Post.cpp"
-#include "Account.cpp"
-#include "Manager.cpp"
+#include "Post.h"
+#include "Account.h"
+#include "Manager.h"
 
 int main() {
     std::vector<Post> postari{Post{170, 345, {"crypto", "btc", "eth"}, "crypto"},
@@ -34,7 +34,7 @@ int main() {
     std::cout << cont1.get_top_post() << "\n";
     std::cout << man.get_top_account() << "\n";
     std::cout << cont1.find_post_by_theme("crypto");
-    std::cout << man.find_account_by_username("jack_sparrow");
+    std::cout << man.Manager::find_account_by_username("jack_sparrow");
     Post post2{150, 345, {"crypto", "btc", "eth"}, "crypto"};
 
     post2 = postari[1];
@@ -52,7 +52,7 @@ int main() {
     std::cout << cont1;
     std::cout << '\n';
     postari[0].add_hashtag("newww");
-    postari[0].get_hashtags();
+    postari[0].Post::get_hashtags();
     std::cout << '\n';
 
     std::cout << postari[1].get_theme() << std::endl;
@@ -65,21 +65,21 @@ int main() {
     cont1.add_post(Post{150, 345, {"food", "kitchen", "healthy"}, "cooking"});
     cont1.get_posts();
 //
-    std::cout << cont1.get_followers() << std::endl;
-    std::cout << cont1.get_following() << std::endl;
+    std::cout << cont1.Account::get_followers() << std::endl;
+    std::cout << cont1.Account::get_following() << std::endl;
     cont1.new_follower();
     cont1.new_following();
     std::cout << cont1.get_followers() << std::endl;
     std::cout << cont1.get_following() << std::endl;
 //
-    std::cout << cont1.get_audience() << std::endl;
-    cont1.change_audience("girls");
-    std::cout << cont1.get_audience() << std::endl;
+    std::cout << cont1.Account::get_audience() << std::endl;
+    cont1.Account::change_audience("girls");
+    std::cout << cont1.Account::get_audience() << std::endl;
 //
 //    // Functionalitati manager
-    std::cout << man.get_name();
-    man.change_name("Jane Smith");
-    man.add_account(Account{"john.not", 100, 1000, "teenagers", postari});
+    std::cout << man.Manager::get_name();
+    man.Manager::change_name("Jane Smith");
+    man.Manager::add_account(Account{"john.not", 100, 1000, "teenagers", postari});
     std::cout << man;
 
 }
