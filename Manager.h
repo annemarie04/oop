@@ -26,7 +26,7 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Manager &manager);
 
     // Destructor
-    ~Manager();
+    virtual ~Manager();
 
     //setters
     void change_name(std::string const &new_name);

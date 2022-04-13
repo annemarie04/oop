@@ -31,7 +31,7 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Account &account);
 
     // Destructor
-    ~Account();
+    virtual ~Account();
 
     //setters
     void do_like(Post *post_u);

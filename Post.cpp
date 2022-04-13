@@ -62,7 +62,7 @@ Post::Post(const Post &other) : no_likes{other.no_likes}, no_comments{other.no_c
                                 theme{other.theme} {}
 
 // Destructor
-//~Post() {}
+Post::~Post() {}
 
 //setter
 void Post::increment_no_likes() {

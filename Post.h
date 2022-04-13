@@ -35,7 +35,7 @@ public:
     Post(const Post &other);
 
     // Destructor
-    ~Post();
+    virtual ~Post();
 
     //setter
     void increment_no_likes();

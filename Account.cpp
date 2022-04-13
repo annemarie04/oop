@@ -51,7 +51,7 @@ std::ostream &operator<<(std::ostream &os, const Account &account) {
 }
 
 // Destructor
-//~Account() {}
+Account::~Account() {}
 
 //setters
 void Account::do_like(Post *post_u) {

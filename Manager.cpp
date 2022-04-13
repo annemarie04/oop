@@ -28,8 +28,9 @@ std::ostream &operator<<(std::ostream &os, const Manager &manager) {
     }
     return os;
 }
+
 // Destructor
-//~Manager() {}
+Manager::~Manager() {}
 
 //setters
 void Manager::change_name(std::string const &new_name) {
