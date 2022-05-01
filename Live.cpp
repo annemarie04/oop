@@ -17,3 +17,5 @@ void Live::show_post() {
               << "\n\tEnding time: " << this->ending_time << "\n";
 
 }
+
+Live::~Live() {}

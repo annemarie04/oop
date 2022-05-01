@@ -25,6 +25,7 @@ public:
         return std::make_shared<Photo>(*this);
     }
 
+    virtual ~Photo();
 
 };
 

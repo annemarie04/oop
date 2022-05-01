@@ -24,6 +24,8 @@ public:
         return std::make_shared<Live>(*this);
     }
 
+    virtual ~Live();
+
 };
 
 

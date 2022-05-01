@@ -23,6 +23,8 @@ public:
     [[nodiscard]] std::shared_ptr<Post> clone() const override {
         return std::make_shared<Check_in>(*this);
     }
+
+    virtual ~Check_in();
 };
 
 #endif //OOP_CHECK_IN_H

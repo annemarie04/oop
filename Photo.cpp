@@ -15,3 +15,5 @@ void Photo::show_post() {
               << "\n\tSaturation: " << this->saturation << "\n\tFilter: " << this->filter << "\n\tFile Path: "
               << this->file_path << "\n";
 }
+
+Photo::~Photo() {}

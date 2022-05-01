@@ -19,3 +19,5 @@ void Check_in::show_post() {
                   << "\n\tCountry: " << this->country << "\n";
     }
 }
+
+Check_in::~Check_in() {}
