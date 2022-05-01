@@ -6,6 +6,7 @@
 #define OOP_PHOTO_H
 
 #include "Post.h"
+#include <memory>
 
 class Photo : public Post {
     int brightness;

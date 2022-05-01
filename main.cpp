@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include<algorithm>
+#include <cstring>
 #include "Account.h"
 #include "Manager.h"
 

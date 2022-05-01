@@ -9,6 +9,7 @@
 #include <vector>
 #include<map>
 #include<algorithm>
+#include <memory>
 
 class Post {
     int no_likes;

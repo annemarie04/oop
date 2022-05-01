@@ -6,6 +6,7 @@
 #define OOP_LIVE_H
 
 #include "Post.h"
+#include <memory>
 
 
 class Live : public Post {

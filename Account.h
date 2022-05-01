@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include<map>
+#include <memory>
 #include<algorithm>
 #include "Post.h"
 #include "Check_in.h"

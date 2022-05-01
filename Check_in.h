@@ -6,6 +6,7 @@
 #define OOP_CHECK_IN_H
 
 #include "Post.h"
+#include <memory>
 
 
 class Check_in : public Post {
