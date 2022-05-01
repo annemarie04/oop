@@ -9,40 +9,6 @@ int main() {
 
     std::vector<Account> accounts;
     std::vector<Manager> managers;
-    // date de intrare
-//    Account account = Account{"john_doe", 0, 0, "Crypto"};
-//    accounts.push_back(account);
-//    Account account2 = Account{"idk_username", 0, 0, "Teenagers"};
-//    accounts.push_back(account2);
-//
-//    accounts[0].add_photo({"BTC", "ETH", "DEFI"}, "Crypto", 50,
-//                          40, 38, "Sepia", "poza1.jpeg");
-//    accounts[0].add_photo({"food", "lifestyle", "vegan"}, "food", 40,
-//                          40, 30, "Sepia", "poza2.jpeg");
-//    accounts[0].add_photo({"sport", "workout", "outfit"}, "workout", 0,
-//                          0, 0, "Sepia", "poza3.jpeg");
-//    accounts[0].add_photo({"strong", "gym", "tennis"}, "workout", 0,
-//                          0, 0, "Sepia", "poza4.jpeg");
-//    accounts[0].add_photo({"business", "money", "invest"}, "investing", 10,
-//                          20, 20, "Sepia", "poza5.jpeg");
-//    accounts[0].add_photo({"fashionable", "outfit", "pink"}, "fashion", 50,
-//                          90, 87, "Sepia", "poza5.jpeg");
-//    accounts[0].add_photo({"make-up", "colors", "lipstick"}, "make-up", 50,
-//                          40, 38, "Sepia", "poza6.jpeg");
-//
-//    accounts[0].do_like(0);
-//    accounts[0].do_like(1);
-//    accounts[0].do_like(1);
-//
-//
-//    Manager manager1 = Manager{"Dorian"};
-//    Manager manager2 = Manager{"Simona"};
-//    managers.push_back(manager1);
-//    managers.push_back(manager2);
-//    managers[0].add_account(accounts[0]);
-//    managers[1].add_account(accounts[1]);
-//    managers[0].swap_accounts(managers[1], 0, 0);
-
 
     std::cout << "APP STARTED:\n";
 
