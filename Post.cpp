@@ -3,9 +3,7 @@
 //
 #include <iostream>
 #include <vector>
-#include<map>
 #include<algorithm>
-
 #include "Post.h"
 
 // Constructor de Initiere
@@ -39,19 +37,15 @@ Post &Post::operator=(const Post &other) {
     no_comments = other.no_comments;
     theme = other.theme;
     std::copy(other.hashtags.begin(), other.hashtags.end(), hashtags.begin());
-//        hashtags.clear();
-//        for (std::string hashtag : other.hashtags) {
-//            hashtags.push_back(hashtag);
-//        }
     return *this;
 }
 
 // Operator << // avea friend
 std::ostream &operator<<(std::ostream &os, const Post &post) {
-    os << "no_likes: " << post.no_likes << ", no_comments: " << post.no_comments
-       << ", theme: " << post.theme;
-    os << "\n hashtags: ";
-    for (std::string hashtag : post.hashtags) {
+    os << "\fNo. of Likes: " << post.no_likes << ", No of Comments: " << post.no_comments
+       << ", Theme: " << post.theme;
+    os << "\n\fHashtags: ";
+    for (const std::string &hashtag : post.hashtags) {
         os << hashtag << " ";
     }
     return os;
@@ -74,23 +68,12 @@ void Post::decrement_no_likes() {
     --this->no_likes;
 }
 
-void Post::add_hashtag(std::string hashtag) {
-    this->hashtags.push_back(hashtag);
-}
-
-void Post::change_theme(std::string const &new_theme) {
-    this->theme = new_theme;
-}
-
 //getter
-int Post::get_likes() {
+int Post::get_likes() const {
     return this->no_likes;
-}
-
-std::vector<std::string> Post::get_hashtags() {
-    return this->hashtags;
 }
 
 std::string Post::get_theme() {
     return this->theme;
 }
+

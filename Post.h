@@ -15,6 +15,7 @@ class Post {
     int no_comments;
     std::vector<std::string> hashtags;
     std::string theme;
+
 public:
     // Constructor de Initiere
     Post(int noLikes, int noComments, const std::vector<std::string> &hashtags, const std::string &theme);
@@ -25,8 +26,9 @@ public:
     // Operator <
     bool operator<(const Post &other) const;
 
-    // Operator =
+        // Operator =
     Post &operator=(const Post &other);
+
 
     // Operator <<
     friend std::ostream &operator<<(std::ostream &os, const Post &post);
@@ -42,17 +44,16 @@ public:
 
     void decrement_no_likes();
 
-    void add_hashtag(std::string hashtag);
-
-    void change_theme(std::string const &new_theme);
-
     //getter
-    int get_likes();
+    [[nodiscard]] int get_likes() const;
 
-    std::vector<std::string> get_hashtags();
 
     std::string get_theme();
+
+    // functii virtuale pure
+    virtual void show_post() = 0;
+
+    virtual std::shared_ptr<Post> clone() const = 0;
+
 };
-
-
 #endif //OOP_POST_H

@@ -17,7 +17,7 @@ class Manager {
     std::vector<Account> accounts;
 public:
     //Constructor de Initiere
-    Manager(const std::string &name, const std::vector<Account> &accounts);
+    Manager(const std::string &name);
 
     //Operator == (de verificare)
     bool operator==(const Manager &mg) const;
@@ -40,6 +40,9 @@ public:
 
     // find account by username
     Account find_account_by_username(const std::string &searched_username);
+
+    void swap_accounts(Manager &manager, const int id_account1, const int id_account2);
+
 };
 
 

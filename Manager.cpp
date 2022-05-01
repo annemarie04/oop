@@ -3,14 +3,12 @@
 //
 #include <iostream>
 #include <vector>
-#include<map>
 #include<algorithm>
 #include "Manager.h"
 #include "Account.h"
-#include "Post.h"
 
 //Constructor de Initiere
-Manager::Manager(const std::string &name, const std::vector<Account> &accounts) : name(name), accounts(accounts) {}
+Manager::Manager(const std::string &name) : name(name) {}
 
 //Operator == (de egalitate)
 bool Manager::operator==(const Manager &mg) const {
@@ -28,6 +26,7 @@ std::ostream &operator<<(std::ostream &os, const Manager &manager) {
     }
     return os;
 }
+
 
 // Destructor
 Manager::~Manager() {}
@@ -62,5 +61,9 @@ Account Manager::find_account_by_username(const std::string &searched_username) 
         return account.get_username() == searched_username;
     });
     return *it;
+}
+
+void Manager::swap_accounts(Manager &manager, const int id_account1, const int id_account2) {
+    Account::swap(this->accounts[id_account1], manager.accounts[id_account2]);
 }
 
