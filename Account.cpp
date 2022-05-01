@@ -57,8 +57,16 @@ void Account::swap(Account &a1, Account &a2) {
     swap(a1.pinned_post, a2.pinned_post);
 }
 
-Account &Account::operator=(Account &other) {
-    swap(other, *this);
+
+Account &Account::operator=(const Account &other) {
+    username = other.username;
+    followers = other.followers;
+    following = other.following;
+    target_audience = other.target_audience;
+    pinned_post = other.pinned_post;
+    likes = other.likes;
+    std::copy(other.posts.begin(), other.posts.end(), posts.begin());
+    std::copy(other.shares.begin(), other.shares.end(), shares.begin());
     return *this;
 }
 
