@@ -36,7 +36,7 @@ public:
 
     static void swap(Account &a1, Account &a2);
 
-    Account &operator=(const Account &other);
+    Account &operator=(Account &other);
 
     // Destructor
     virtual ~Account();

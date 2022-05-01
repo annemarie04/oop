@@ -57,9 +57,8 @@ void Account::swap(Account &a1, Account &a2) {
     swap(a1.pinned_post, a2.pinned_post);
 }
 
-Account &Account::operator=(const Account &other) {
-    Account copie = other;
-    swap(copie, *this);
+Account &Account::operator=(Account &other) {
+    swap(other, *this);
     return *this;
 }
 
