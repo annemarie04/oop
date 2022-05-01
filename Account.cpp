@@ -58,7 +58,7 @@ void Account::swap(Account &a1, Account &a2) {
 }
 
 Account &Account::operator=(const Account &other) {
-    auto copie{other};
+    Account copie{other};
     swap(copie, *this);
     return *this;
 }

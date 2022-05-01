@@ -388,7 +388,7 @@ int main() {
                 std::cout << "\nNu ai selectat niciun cont.\n";
                 continue;
             }
-            std::cout << managers[manager_selected].get_top_account();
+            managers[manager_selected].get_top_account();
         }
         if (strcmp(input, "FIND_ACCOUNT_BY_USERNAME") == 0) {
             if (manager_selected == -1) {
@@ -398,7 +398,7 @@ int main() {
             std::string username;
             std::cout << "\nUsername cont: ";
             std::cin >> username;
-            std::cout << managers[manager_selected].find_account_by_username(username);
+            managers[manager_selected].find_account_by_username(username);
         }
         if (strcmp(input, "SWAP_ACCOUNTS") == 0) {
             if (manager_selected == -1) {
