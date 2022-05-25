@@ -12,16 +12,22 @@
 #include<algorithm>
 #include "Post.h"
 #include "Check_in.h"
+#include "Photo.h"
+#include "Live.h"
+
 
 class Account {
     std::string username;
     int followers;
     int following;
     std::string target_audience;
-    std::vector<Post *> posts;
-    std::map<Post *, bool> likes;
+    std::vector<std::shared_ptr<Post>> posts;
+    std::map<std::shared_ptr<Post>, bool> likes;
+    // likes[0] = true;
+    // likes[1] = true;
+    // likes[10] = true;
     std::vector<std::shared_ptr<Post>> shares;
-    Post *pinned_post = nullptr;
+    std::shared_ptr<Post> pinned_post = nullptr;
 
 
 public:
@@ -36,10 +42,8 @@ public:
 
     static void swap(Account &a1, Account &a2);
 
-    Account &operator=(const Account &other);
+    Account &operator=(Account &other);
 
-    // Destructor
-    virtual ~Account();
 
     //setters
     void do_like(unsigned int id);
@@ -51,15 +55,11 @@ public:
     void new_following();
 
 //    void add_post(Post postare);
-    void add_photo(const std::vector<std::string> &hashtags, const std::string &theme,
-                   int brightness, int contrast, int saturation, const std::string &filter,
-                   const std::string &file_path);
+    void add_photo(Photo &photo);
 
-    void add_check_in(const std::vector<std::string> &hashtags, const std::string &theme,
-                      const std::string &adress, const std::string &city, const std::string &country);
+    void add_check_in(Check_in &check_in);
 
-    void add_live(const std::vector<std::string> &hashtags, const std::string &theme,
-                  int people_watching, int starting_time, int ending_time);
+    void add_live(Live &live);
 
     void change_audience(std::string const &new_target);
 
@@ -78,7 +78,7 @@ public:
 
     void show_my_likes();
 
-    void get_top_post();
+    void sort_posts_by_likes();
 
     // find
     void find_post_by_theme(const std::string &searched_theme);
@@ -94,6 +94,13 @@ public:
     void delete_pin();
 
     void show_pin();
+
+    const std::vector<std::shared_ptr<Post>> &getPosts() const;
+
+    void setPosts(const std::vector<std::shared_ptr<Post>> &posts);
+
+    // Destructor
+    ~Account();
 };
 
 

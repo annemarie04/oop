@@ -56,5 +56,10 @@ public:
 
     virtual std::shared_ptr<Post> clone() const = 0;
 
+    virtual int scor_relevanta();
+
+    int getNoComments() const;
+
+    void setNoComments(int noComments);
 };
 #endif //OOP_POST_H

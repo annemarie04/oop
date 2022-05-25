@@ -36,7 +36,7 @@ void Manager::change_name(std::string const &new_name) {
     this->name = new_name;
 }
 
-void Manager::add_account(const Account &new_account) {
+void Manager::add_account(const std::shared_ptr<Account> &new_account) {
     this->accounts.push_back(new_account);
 }
 
@@ -45,26 +45,26 @@ std::string Manager::get_name() {
     return this->name;
 }
 
-void Manager::get_top_account() {
-    std::vector<Account> copy_accounts;
+std::shared_ptr<Account> Manager::get_top_account() {
+    std::vector<std::shared_ptr<Account>> copy_accounts;
     copy_accounts = this->accounts;
 
-    sort(copy_accounts.begin(), copy_accounts.end(), [](Account lhs, Account rhs) {
-        return lhs.get_followers() > rhs.get_followers();
+    sort(copy_accounts.begin(), copy_accounts.end(), [](std::shared_ptr<Account> &lhs, std::shared_ptr<Account> &rhs) {
+        return lhs->get_followers() > rhs->get_followers();
     });
-    std::cout << copy_accounts[0];
-
+    return copy_accounts[0];
 }
 
 // find account by username
-void Manager::find_account_by_username(const std::string &searched_username) {
-    auto it = std::find_if(this->accounts.begin(), this->accounts.end(), [searched_username](Account account) {
-        return account.get_username() == searched_username;
-    });
-    std::cout << *it;
+std::shared_ptr<Account> Manager::find_account_by_username(const std::string &searched_username) {
+    auto it = std::find_if(this->accounts.begin(), this->accounts.end(),
+                           [searched_username](std::shared_ptr<Account> &account) {
+                               return account->get_username() == searched_username;
+                           });
+    return *it;
 }
 
 void Manager::swap_accounts(Manager &manager, const int id_account1, const int id_account2) {
-    Account::swap(this->accounts[id_account1], manager.accounts[id_account2]);
+    Account::swap(*this->accounts[id_account1], *manager.accounts[id_account2]);
 }
 

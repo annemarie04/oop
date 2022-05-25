@@ -14,7 +14,7 @@
 
 class Manager {
     std::string name;
-    std::vector<Account> accounts;
+    std::vector<std::shared_ptr<Account>> accounts;
 public:
     //Constructor de Initiere
     explicit Manager(const std::string &name);
@@ -25,24 +25,25 @@ public:
     // Operator <<
     friend std::ostream &operator<<(std::ostream &os, const Manager &manager);
 
-    // Destructor
-    virtual ~Manager();
+
 
     //setters
     void change_name(std::string const &new_name);
 
-    void add_account(const Account &new_account);
+    void add_account(const std::shared_ptr<Account> &new_account);
 
     //getters
     std::string get_name();
 
-    void get_top_account();
+    std::shared_ptr<Account> get_top_account();
 
     // find account by username
-    void find_account_by_username(const std::string &searched_username);
+    std::shared_ptr<Account> find_account_by_username(const std::string &searched_username);
 
     void swap_accounts(Manager &manager, const int id_account1, const int id_account2);
 
+    // Destructor
+    ~Manager();
 };
 
 

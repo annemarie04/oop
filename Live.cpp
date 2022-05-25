@@ -1,7 +1,7 @@
 //
 // Created by Anne Messner on 01.05.2022.
 //
-
+#include "Post.h"
 #include "Live.h"
 
 Live::Live(int noLikes, int noComments, const std::vector<std::string> &hashtags, const std::string &theme,
@@ -10,12 +10,24 @@ Live::Live(int noLikes, int noComments, const std::vector<std::string> &hashtags
                                                                       starting_time(starting_time),
                                                                       ending_time(ending_time) {}
 
+std::ostream &operator<<(std::ostream &os, const Live &live) {
+    os << static_cast<const Post &>(live) << " people_watching: " << live.people_watching << " starting_time: "
+       << live.starting_time << " ending_time: " << live.ending_time;
+    return os;
+}
+
 void Live::show_post() {
-    Post *post = this;
-    std::cout << *post << "\n\tPeople watching: " << this->people_watching << "\n\tStarting time: "
-              << this->starting_time
-              << "\n\tEnding time: " << this->ending_time << "\n";
+    std::cout << *this;
+}
+
+int Live::scor_relevanta() {
+    int scor = (this->get_likes() * 3 + this->getNoComments() * 7) / 10;
+    scor += this->people_watching * 2;
+    int time = this->ending_time - this->starting_time;
+    scor += time;
+    return scor;
 
 }
 
-Live::~Live() {}
+
+Live::~Live() = default;

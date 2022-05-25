@@ -11,6 +11,7 @@
 #include "Photo.h"
 #include "Check_in.h"
 #include "Live.h"
+#include "my_exceptie.h"
 
 
 // Constructor de Initiere
@@ -37,9 +38,8 @@ std::ostream &operator<<(std::ostream &os, const Account &account) {
        << "\n Posts:\n ";
     int index = 0;
     for (auto &post : account.posts) {
-        Post *obj = Account::dcast(post);
         std::cout << "Post ID: " << index << "\n";
-        obj->show_post();
+        post->show_post();
         index++;
     }
     return os;
@@ -58,17 +58,18 @@ void Account::swap(Account &a1, Account &a2) {
 }
 
 
-Account &Account::operator=(const Account &other) {
-    username = other.username;
-    followers = other.followers;
-    following = other.following;
-    target_audience = other.target_audience;
-    pinned_post = other.pinned_post;
-    likes = other.likes;
-    std::copy(other.posts.begin(), other.posts.end(), posts.begin());
-    std::copy(other.shares.begin(), other.shares.end(), shares.begin());
-    return *this;
-}
+//Account &Account::operator=(Account &other) {
+////    Account::swap(*this, other);
+////    username = other.username;
+////    followers = other.followers;
+////    following = other.following;
+////    target_audience = other.target_audience;
+////    pinned_post = other.pinned_post;
+////    likes = other.likes;
+////    std::copy(other.posts.begin(), other.posts.end(), posts.begin());
+////    std::copy(other.shares.begin(), other.shares.end(), shares.begin());
+//    return *this;
+//}
 
 // Destructor
 Account::~Account() {}
@@ -83,6 +84,14 @@ void Account::new_following() {
 
 void Account::change_audience(std::string const &new_target) {
     this->target_audience = new_target;
+}
+
+const std::vector<std::shared_ptr<Post>> &Account::getPosts() const {
+    return posts;
+}
+
+void Account::setPosts(const std::vector<std::shared_ptr<Post>> &p) {
+    Account::posts = p;
 }
 
 //getters
@@ -107,69 +116,42 @@ std::string Account::get_audience() {
 
 
 void
-Account::add_photo(const std::vector<std::string> &hashtags, const std::string &theme, int brightness, int contrast,
-                   int saturation,
-                   const std::string &filter, const std::string &file_path) {
-    Photo *photo = new Photo(0, 0, hashtags, theme, brightness, contrast, saturation, filter, file_path);
-    this->posts.push_back(photo);
+Account::add_photo(Photo &photo) {
+    std::shared_ptr<Post> photo_sp = std::make_shared<Photo>(photo);
+    this->posts.push_back(photo_sp);
+    std::cout << "Type: " << typeid(photo_sp.get()).name() << "\n";
+
 }
 
 void
-Account::add_check_in(const std::vector<std::string> &hashtags, const std::string &theme, const std::string &adress,
-                      const std::string &city, const std::string &country) {
-    Check_in *check_in = new Check_in(0, 0, hashtags, theme, adress, city, country);
-    this->posts.push_back(check_in);
+Account::add_check_in(Check_in &check_in) {
+    std::shared_ptr<Post> check_in_sp = std::make_shared<Check_in>(check_in);
+    this->posts.push_back(check_in_sp);
 }
 
-void Account::add_live(const std::vector<std::string> &hashtags, const std::string &theme, int people_watching,
-                       int starting_time, int ending_time) {
-    Live *live = new Live(0, 0, hashtags, theme, people_watching, starting_time, ending_time);
-    this->posts.push_back(live);
+void Account::add_live(Live &live) {
+    std::shared_ptr<Post> live_sp = std::make_shared<Live>(live);
+    this->posts.push_back(live_sp);
 }
-
-
-class my_exceptie : public std::runtime_error {
-public:
-    explicit my_exceptie(const std::string &arg) : runtime_error(arg) {}
-};
-
-class eroare_server : public my_exceptie {
-public:
-    explicit eroare_server(const std::string &arg) : my_exceptie(arg) {}
-};
-
-class eroare_client : public my_exceptie {
-public:
-    explicit eroare_client(const std::string &arg) : my_exceptie(arg) {}
-};
 
 
 void Account::get_post(unsigned int id) {
-    try {
-        if (id >= this->posts.size())
-            throw eroare_client("ID-ul nu exista");
-        Post *obj = dcast(this->posts[id]);
-        std::cout << "Post ID: " << id << "\n";
-        obj->show_post();
-    } catch (my_exceptie &err) {
-        std::cout << "Error: " << err.what();
-    }
-
+    if (id >= this->posts.size())
+        throw eroare_client("ID-ul nu exista");
+    std::cout << "Post ID: " << id << "\n";
+    this->posts[id]->show_post();
 }
 
 void Account::get_posts() {
     int index = 0;
-    if (pinned_post != nullptr) {
 
-    }
     if (pinned_post != nullptr) {
         this->show_pin();
         std::cout << '\n';
     }
     for (auto &post : this->posts) {
         std::cout << "Post ID: " << index << "\n";
-        Post *obj = dcast(post);
-        obj->show_post();
+        post->show_post();
         std::cout << "\n";
         index++;
     }
@@ -177,61 +159,47 @@ void Account::get_posts() {
 
 //setters in functie de id
 void Account::do_like(unsigned int id) {
-    try {
-        if (id >= this->posts.size())
-            throw eroare_client("ID-ul nu exista");
+    if (id >= this->posts.size())
+        throw eroare_client("ID-ul nu exista");
 
-        Post *post_u = this->posts[id];
-        if (likes.count(post_u)) {
-            return;
-        }
-        this->likes.insert(std::pair<Post *, bool>(post_u, true));
-        post_u->increment_no_likes();
-    } catch (my_exceptie &err) {
-        std::cout << "Error: " << err.what();
+    if (this->likes.count(this->posts[id])) {
+        throw eroare_client("Ai dat deja like");
     }
+    this->likes.insert(std::pair<std::shared_ptr<Post>, bool>(this->posts[id], true));
+    this->posts[id]->increment_no_likes();
 
 
 }
 
 void Account::do_unlike(unsigned int id) {
-    try {
-        if (id >= this->posts.size())
-            throw eroare_client("ID-ul nu exista");
-        Post *post_u = this->posts[id];
-        if (!likes.count(post_u)) {
-            return;
-        }
-        auto it = likes.find(post_u);
-        likes.erase(it);
-        post_u->decrement_no_likes();
-    } catch (my_exceptie &err) {
-        std::cout << "Error: " << err.what();
+    if (id >= this->posts.size())
+        throw eroare_client("ID-ul nu exista");
+    if (!this->likes.count(this->posts[id])) {
+        throw eroare_client("Nu ai dat inca like");
+        return;
     }
+    auto it = likes.find(this->posts[id]);
+    likes.erase(it);
+    this->posts[id]->decrement_no_likes();
 }
 
 void Account::show_my_likes() {
-    auto it = this->likes.begin();
-    for (; it != this->likes.end(); it++) {
-        Post *obj = dcast(it->first);
-        obj->show_post();
+    for (auto it = this->likes.begin(); it != this->likes.end(); it++) {
+        it->first->show_post();
         std::cout << "\n";
     }
 }
 
-void Account::get_top_post() {
+//get_top_post
+void Account::sort_posts_by_likes() {
     if (this->posts.empty()) {
-        std::cout << "\nNu sunt postari\n";
-        return;
+        throw eroare_client("Nu exista postari");
     }
-    std::vector<Post *> copy_posts;
-    copy_posts = this->posts;
 
-    sort(copy_posts.begin(), copy_posts.end(), [](const Post *lhs, const Post *rhs) {
+    sort(this->posts.begin(), this->posts.end(), [](std::shared_ptr<Post> lhs, std::shared_ptr<Post> rhs) {
         return lhs->get_likes() > rhs->get_likes();
     });
-    Post *obj = dcast(copy_posts[0]);
-    obj->show_post();
+
 }
 
 
@@ -240,9 +208,8 @@ void Account::find_post_by_theme(const std::string &searched_theme) {
     int index = 0;
     for (auto &post : this->posts) {
         if (post->get_theme() == searched_theme) {
-            Post *obj = dcast(post);
             std::cout << "Post ID: " << index << "\n";
-            obj->show_post();
+            post->show_post();
             std::cout << "\n";
         }
         index++;
@@ -269,33 +236,25 @@ Post *Account::dcast(Post *postare) {
 }
 
 void Account::share(unsigned int id, Account *cont2) {
-    try {
-        if (id >= cont2->posts.size())
-            throw eroare_client("ID-ul nu exista");
-        std::shared_ptr<Post> shared_post = cont2->posts[id]->clone();
-        this->shares.push_back(shared_post);
-    } catch (my_exceptie &err) {
-        std::cout << "Error: " << err.what();
-    }
+    if (id >= cont2->posts.size())
+        throw eroare_client("ID-ul nu exista");
+    std::shared_ptr<Post> shared_post = cont2->posts[id]->clone();
+    this->shares.push_back(shared_post);
+
 }
 
 void Account::show_shared() {
     for (auto &share : shares) {
-        Post &pointer = *share;
-        Post *obj = dcast(&pointer);
-        obj->show_post();
+        share->show_post();
     }
 }
 
 void Account::pin_post(unsigned int id) {
-    try {
-        if (id >= this->posts.size())
-            throw eroare_client("ID-ul nu exista");
-        this->pinned_post = this->posts[id];
-        this->posts.erase(this->posts.begin() + id);
-    } catch (my_exceptie &err) {
-        std::cout << "Error: " << err.what();
-    }
+
+    if (id >= this->posts.size())
+        throw eroare_client("ID-ul nu exista");
+    this->pinned_post = this->posts[id];
+    this->posts.erase(this->posts.begin() + id);
 }
 
 void Account::delete_pin() {
@@ -313,6 +272,5 @@ void Account::show_pin() {
         return;
     }
     std::cout << "\nPinned post: \n";
-    Post *obj = dcast(this->pinned_post);
-    obj->show_post();
+    pinned_post->show_post();
 }

@@ -5,13 +5,52 @@
 #include "Account.h"
 #include "Manager.h"
 
-int main() {
+void create_feed(std::shared_ptr<Account> a, int b, int c, int s) {
+    for (auto post : a->getPosts()) {
+//        std::cout << typeid(post.get()).name() <<"\n";
+        if (dynamic_cast<Photo *>(post.get())) {
+            Photo *p = dynamic_cast<Photo *>(post.get());
+            p->edit_photo(b, c, s);
+        }
+    }
+}
 
-    std::vector<Account> accounts;
-    std::vector<Manager> managers;
+
+int main() {
 
     std::cout << "APP STARTED:\n";
 
+    Photo p1(0, 0, {"food", "organic", "vegan"}, "healthy food", 20, 10, 38, "Sienna", "pic1.jpg");
+    Photo p2(0, 0, {"toy", "wood", "fun"}, "old_school toys", 50, 60, 18, "clarendon", "pic2.jpg");
+    Live l1(0, 0, {"gaming", "player"}, "gaming", 45, 17, 18);
+    Live l2(0, 0, {"make-up", "lip stick"}, "make-up tutorial", 10, 12, 15);
+    Check_in c1(0, 0, {"latte", "cappuccino"}, "coffee shops", "Forma Cafe", "Bucharest", "Romania");
+    Check_in c2(0, 0, {"burger", "lunch"}, "fast food", "Burger King", "Bucharest", "Romania");
+    std::shared_ptr<Account> acc1 = std::make_shared<Account>(Account("jane.doe", 0, 0, "children"));
+    acc1->add_photo(p1);
+    acc1->add_check_in(c1);
+    acc1->add_live(l1);
+    std::shared_ptr<Account> acc2 = std::make_shared<Account>(Account("jim.carry", 0, 0, "teenagers"));
+//    acc2->add_photo(p2);
+    acc2->add_check_in(c2);
+    acc2->add_live(l2);
+
+    std::shared_ptr<Manager> m1 = std::make_shared<Manager>(Manager("Ioana"));
+    std::shared_ptr<Manager> m2 = std::make_shared<Manager>(Manager("Dorel"));
+
+    m1->add_account(acc1);
+    m1->add_account(acc2);
+
+    acc1->get_posts();
+
+    create_feed(acc1, 10, 20, 30);
+    acc1->get_posts();
+
+//    Account a3 = a1;
+//    std::cout << a3;
+
+
+/*
     char input[100];
     int input_index = 0;
     int input_index2 = 0;
@@ -19,7 +58,6 @@ int main() {
     int second_account = -1;
     int manager_selected = -1;
     int second_manager = -1;
-
 
     while (true) {
         std::cin.getline(input, 100);
@@ -129,7 +167,9 @@ int main() {
             std::cin >> filter;
             std::cout << "\nFile name: ";
             std::cin >> file_path;
-            accounts[account_selected].add_photo(hashtags, theme, brightness, contrast, saturation, filter, file_path);
+
+            Photo photo(0, 0, hashtags, theme, brightness, contrast, saturation, filter, file_path);
+            accounts[account_selected].add_photo(photo);
         }
         if (strcmp(input, "ADD_CHECK_IN") == 0) {
             std::vector<std::string> hashtags;
@@ -149,7 +189,8 @@ int main() {
             std::cout << "\nCountry: ";
             std::cin >> country;
 
-            accounts[account_selected].add_check_in(hashtags, theme, adress, city, country);
+            Check_in check_in(0, 0, hashtags, theme, adress, city, country);
+            accounts[account_selected].add_check_in(check_in);
         }
         if (strcmp(input, "ADD_LIVE") == 0) {
             std::vector<std::string> hashtags;
@@ -170,7 +211,8 @@ int main() {
             std::cout << "\nEnding time: ";
             std::cin >> ending_time;
 
-            accounts[account_selected].add_live(hashtags, theme, people_watching, starting_time, ending_time);
+            Live live(0, 0, hashtags, theme, people_watching, starting_time, ending_time);
+            accounts[account_selected].add_live(live);
         }
         if (strcmp(input, "LIKE_MY_POST") == 0) {
             if (account_selected == -1) {
@@ -190,12 +232,12 @@ int main() {
             std::cin >> input_index;
             accounts[account_selected].do_unlike(input_index);
         }
-        if (strcmp(input, "GET_MY_TOP_POST") == 0) {
+        if (strcmp(input, "SORT_POSTS_BY_LIKES") == 0) {
             if (account_selected == -1) {
                 std::cout << "\nNu ai selectat niciun cont.\n";
                 continue;
             }
-            accounts[account_selected].get_top_post();
+            accounts[account_selected].sort_posts_by_likes();
         }
         if (strcmp(input, "FIND_POST_BY_THEME") == 0) {
             if (account_selected == -1) {
@@ -388,4 +430,5 @@ int main() {
     }
 
     return 0;
+    */
 }

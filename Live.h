@@ -7,6 +7,7 @@
 
 #include "Post.h"
 #include <memory>
+#include <ostream>
 
 
 class Live : public Post {
@@ -24,7 +25,13 @@ public:
         return std::make_shared<Live>(*this);
     }
 
-    virtual ~Live();
+
+    friend std::ostream &operator<<(std::ostream &os, const Live &live);
+
+    int scor_relevanta() override;
+
+    ~Live() override;
+
 
 };
 

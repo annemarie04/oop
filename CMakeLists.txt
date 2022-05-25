@@ -24,7 +24,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 ###############################################################################
 
 # NOTE: update executable name in .github/workflows/cmake.yml when changing name here
-add_executable(${PROJECT_NAME} main.cpp Post.cpp Post.h Account.cpp Account.h Manager.cpp Manager.h Photo.cpp Photo.h Check_in.cpp Check_in.h Live.cpp Live.h)
+add_executable(${PROJECT_NAME} main.cpp Post.cpp Post.h Account.cpp Account.h Manager.cpp Manager.h Photo.cpp Photo.h Check_in.cpp Check_in.h Live.cpp Live.h my_exceptie.cpp my_exceptie.h)
 
 ###############################################################################
 

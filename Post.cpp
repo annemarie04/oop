@@ -56,7 +56,7 @@ Post::Post(const Post &other) : no_likes{other.no_likes}, no_comments{other.no_c
                                 theme{other.theme} {}
 
 // Destructor
-Post::~Post() {}
+Post::~Post() = default;
 
 //setter
 void Post::increment_no_likes() {
@@ -76,4 +76,17 @@ int Post::get_likes() const {
 std::string Post::get_theme() {
     return this->theme;
 }
+
+int Post::getNoComments() const {
+    return no_comments;
+}
+
+void Post::setNoComments(int noComments) {
+    no_comments = noComments;
+}
+
+int Post::scor_relevanta() {
+    return (this->no_likes * 3 + this->no_comments * 7) / 10;
+}
+
 
