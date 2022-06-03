@@ -75,4 +75,9 @@ void Photo::edit_photo(int &new_brightness, int &new_contrast, int &new_saturati
     this->setSaturation(new_saturation);
 }
 
+std::shared_ptr<Post> Photo::clone() const {
+    return std::make_shared<Photo>(*this);
+}
+
 Photo::~Photo() {}
+

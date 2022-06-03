@@ -64,7 +64,7 @@ std::shared_ptr<Account> Manager::find_account_by_username(const std::string &se
     return *it;
 }
 
-void Manager::swap_accounts(Manager &manager, const int id_account1, const int id_account2) {
-    Account::swap(*this->accounts[id_account1], *manager.accounts[id_account2]);
+void Manager::swap_accounts(std::shared_ptr<Manager> &manager, const int id_account1, const int id_account2) {
+    Account::swap(*this->accounts[id_account1], *manager->accounts[id_account2]);
 }
 

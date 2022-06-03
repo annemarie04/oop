@@ -4,10 +4,10 @@
 #include <cstring>
 #include "Account.h"
 #include "Manager.h"
+#include "my_exceptie.h"
 
 void create_feed(std::shared_ptr<Account> a, int b, int c, int s) {
     for (auto post : a->getPosts()) {
-//        std::cout << typeid(post.get()).name() <<"\n";
         if (dynamic_cast<Photo *>(post.get())) {
             Photo *p = dynamic_cast<Photo *>(post.get());
             p->edit_photo(b, c, s);
@@ -31,25 +31,64 @@ int main() {
     acc1->add_check_in(c1);
     acc1->add_live(l1);
     std::shared_ptr<Account> acc2 = std::make_shared<Account>(Account("jim.carry", 0, 0, "teenagers"));
+    std::shared_ptr<Account> acc3 = std::make_shared<Account>(Account("jon_snow", 0, 0, "teenagers"));
 //    acc2->add_photo(p2);
     acc2->add_check_in(c2);
     acc2->add_live(l2);
 
     std::shared_ptr<Manager> m1 = std::make_shared<Manager>(Manager("Ioana"));
     std::shared_ptr<Manager> m2 = std::make_shared<Manager>(Manager("Dorel"));
+    try {
+        acc1->do_like(2);
+        acc1->do_unlike(1);
+        acc1->new_following();
+        acc1->new_follower();
+        acc2->change_audience("mothers");
+        std::cout << acc2->get_following();
+        acc2->show_post(1);
+        std::cout << acc2->get_audience();
+        acc2->show_my_likes();
+        acc2->show_posts();
+        acc2->sort_posts_by_likes();
+        std::cout << acc2->find_post_by_theme("old_school toys");
+        acc1->share(1, acc2);
+        acc1->show_shared();
+        acc1->pin_post(1);
+        acc1->delete_pin();
+    } catch (my_exceptie &err) {
+        std::cout << err.what();
+    }
 
     m1->add_account(acc1);
     m1->add_account(acc2);
+    m2->add_account(acc3);
+    m1->change_name("george");
+    std::cout << m1->get_name();
+    std::cout << *m1->get_top_account();
+    std::cout << *m1->find_account_by_username("jane.doe");
+    m1->swap_accounts(m2, 0, 0);
 
-    acc1->get_posts();
+    std::cout << p1.scor_relevanta();
+    p1.setNoComments(4);
+//    acc1->get_posts();
+//
+//    create_feed(acc1, 10, 20, 30);
+//    acc1->get_posts();
 
-    create_feed(acc1, 10, 20, 30);
-    acc1->get_posts();
-
-//    Account a3 = a1;
 //    std::cout << a3;
-
-
+//    std::cout << "-------------------------------------------/n";
+//    Account a1("a1",0, 0, "ceva"), a2("a2",0, 0, "altceva");
+//    a1.add_photo(p1);
+//    a2.add_photo(p2);
+//    Account a3{a2};
+//    Account a3 = a1;
+//
+//    std::cout << a3;
+//    std::cout << a1 << a2; // post 1 post 2
+//    a1 = a2;
+//    std::cout << a1 << a2; // post 2 post 2
+//    a2.get_post(2).update("Post 2");
+//    std::cout << a1 << a2; // Post 2 Post 2
 /*
     char input[100];
     int input_index = 0;

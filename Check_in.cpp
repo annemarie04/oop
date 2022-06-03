@@ -34,4 +34,8 @@ int Check_in::scor_relevanta() {
     return scor;
 }
 
+std::shared_ptr<Post> Check_in::clone() const {
+    return std::make_shared<Check_in>(*this);
+}
+
 Check_in::~Check_in() = default;

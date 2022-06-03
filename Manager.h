@@ -40,7 +40,7 @@ public:
     // find account by username
     std::shared_ptr<Account> find_account_by_username(const std::string &searched_username);
 
-    void swap_accounts(Manager &manager, const int id_account1, const int id_account2);
+    void swap_accounts(std::shared_ptr<Manager> &manager, const int id_account1, const int id_account2);
 
     // Destructor
     ~Manager();

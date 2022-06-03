@@ -22,9 +22,7 @@ public:
 
     void show_post() override;
 
-    [[nodiscard]] std::shared_ptr<Post> clone() const override {
-        return std::make_shared<Photo>(*this);
-    }
+    [[nodiscard]] std::shared_ptr<Post> clone() const override;
 
 
     friend std::ostream &operator<<(std::ostream &os, const Photo &photo);
@@ -54,7 +52,6 @@ public:
     void setFilePath(const std::string &filePath);
 
     void edit_photo(int &new_brightness, int &new_contrast, int &new_saturation);
-
 };
 
 

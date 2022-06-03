@@ -23,9 +23,6 @@ class Account {
     std::string target_audience;
     std::vector<std::shared_ptr<Post>> posts;
     std::map<std::shared_ptr<Post>, bool> likes;
-    // likes[0] = true;
-    // likes[1] = true;
-    // likes[10] = true;
     std::vector<std::shared_ptr<Post>> shares;
     std::shared_ptr<Post> pinned_post = nullptr;
 
@@ -34,17 +31,16 @@ public:
     // Constructor de Initiere
     Account(const std::string &username, int followers, int following, const std::string &targetAudience);
 
-    // Operator == (de egalitate)
-    bool operator==(const Account &cont) const;
-
     // Operator <<
     friend std::ostream &operator<<(std::ostream &os, const Account &account);
 
     static void swap(Account &a1, Account &a2);
 
+    Account(const Account &other);
+
     Account &operator=(Account &other);
 
-
+//    virtual Account* clone() = 0;
     //setters
     void do_like(unsigned int id);
 
@@ -70,9 +66,9 @@ public:
 
     int get_following();
 
-    void get_post(unsigned int id);
+    void show_post(unsigned int id);
 
-    void get_posts();
+    void show_posts();
 
     std::string get_audience();
 
@@ -81,11 +77,9 @@ public:
     void sort_posts_by_likes();
 
     // find
-    void find_post_by_theme(const std::string &searched_theme);
+    const std::shared_ptr<Post> find_post_by_theme(const std::string &searched_theme);
 
-    static Post *dcast(Post *postare);
-
-    void share(unsigned int id, Account *cont2);
+    void share(unsigned int id, std::shared_ptr<Account> cont2);
 
     void show_shared();
 

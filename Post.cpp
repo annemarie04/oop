@@ -15,6 +15,10 @@ Post::Post(int noLikes, int noComments, const std::vector<std::string> &hashtags
                                                                                                                       hashtags),
                                                                                                               theme(theme) {}
 
+// Constructor Copiere
+Post::Post(const Post &other) : no_likes{other.no_likes}, no_comments{other.no_comments}, hashtags{other.hashtags},
+                                theme{other.theme} {}
+
 // Operator ==(de egalitate)
 bool Post::operator==(const Post &postare) const {
     return (no_likes == postare.no_likes) &&
@@ -51,9 +55,6 @@ std::ostream &operator<<(std::ostream &os, const Post &post) {
     return os;
 }
 
-// Constructor Copiere
-Post::Post(const Post &other) : no_likes{other.no_likes}, no_comments{other.no_comments}, hashtags{other.hashtags},
-                                theme{other.theme} {}
 
 // Destructor
 Post::~Post() = default;

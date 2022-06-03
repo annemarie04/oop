@@ -20,16 +20,6 @@ Account::Account(const std::string &username, int followers, int following, cons
           target_audience(targetAudience) {}
 
 
-// Operator == (de egalitate)
-bool Account::operator==(const Account &cont) const {
-    return username == cont.username &&
-           followers == cont.followers &&
-           following == cont.following &&
-           target_audience == cont.target_audience &&
-           posts == cont.posts &&
-           likes == cont.likes;
-}
-
 // Operator << // avea friend
 std::ostream &operator<<(std::ostream &os, const Account &account) {
     os << "Username: " << account.username << ", Followers: " << account.followers << ", Following: "
@@ -47,29 +37,33 @@ std::ostream &operator<<(std::ostream &os, const Account &account) {
 
 void Account::swap(Account &a1, Account &a2) {
     using std::swap;
-    swap(a1.username, a2.username);
-    swap(a1.followers, a2.followers);
-    swap(a1.following, a2.following);
-    swap(a1.target_audience, a2.target_audience);
+
+    a1.username = a2.username;
+    a1.followers = a2.followers;
+    a1.following = a2.following;
+    a1.target_audience = a2.target_audience;
     swap(a1.posts, a2.posts);
     swap(a1.likes, a2.likes);
     swap(a1.shares, a2.shares);
     swap(a1.pinned_post, a2.pinned_post);
 }
 
+Account::Account(const Account &other) : username{other.username},
+                                         followers{other.followers},
+                                         following{other.following},
+                                         target_audience{other.target_audience},
+                                         likes{other.likes},
+                                         pinned_post{other.pinned_post ? other.pinned_post->clone() : nullptr} {
+    for (auto post : other.posts) { posts.push_back(post->clone()); }
+    for (auto share : other.shares) { shares.push_back(share->clone()); }
+    for (auto it : other.likes) { likes.insert(std::pair<std::shared_ptr<Post>, bool>(it.first->clone(), it.second)); }
+}
 
-//Account &Account::operator=(Account &other) {
-////    Account::swap(*this, other);
-////    username = other.username;
-////    followers = other.followers;
-////    following = other.following;
-////    target_audience = other.target_audience;
-////    pinned_post = other.pinned_post;
-////    likes = other.likes;
-////    std::copy(other.posts.begin(), other.posts.end(), posts.begin());
-////    std::copy(other.shares.begin(), other.shares.end(), shares.begin());
-//    return *this;
-//}
+
+Account &Account::operator=(Account &other) {
+    Account::swap(*this, other);
+    return *this;
+}
 
 // Destructor
 Account::~Account() {}
@@ -135,14 +129,14 @@ void Account::add_live(Live &live) {
 }
 
 
-void Account::get_post(unsigned int id) {
+void Account::show_post(unsigned int id) {
     if (id >= this->posts.size())
         throw eroare_client("ID-ul nu exista");
     std::cout << "Post ID: " << id << "\n";
     this->posts[id]->show_post();
 }
 
-void Account::get_posts() {
+void Account::show_posts() {
     int index = 0;
 
     if (pinned_post != nullptr) {
@@ -176,7 +170,6 @@ void Account::do_unlike(unsigned int id) {
         throw eroare_client("ID-ul nu exista");
     if (!this->likes.count(this->posts[id])) {
         throw eroare_client("Nu ai dat inca like");
-        return;
     }
     auto it = likes.find(this->posts[id]);
     likes.erase(it);
@@ -203,39 +196,20 @@ void Account::sort_posts_by_likes() {
 }
 
 
-void Account::find_post_by_theme(const std::string &searched_theme) {
+const std::shared_ptr<Post> Account::find_post_by_theme(const std::string &searched_theme) {
 
-    int index = 0;
+    int index = 0, searched_index = -1;
     for (auto &post : this->posts) {
         if (post->get_theme() == searched_theme) {
-            std::cout << "Post ID: " << index << "\n";
-            post->show_post();
-            std::cout << "\n";
+            searched_index = index;
         }
         index++;
     }
+    return this->posts[searched_index];
 }
 
-Post *Account::dcast(Post *postare) {
-    Post *obj = nullptr;
-    if (postare == nullptr) {
-        return nullptr;
-    }
-    if (dynamic_cast<Photo *>(postare)) {
-        obj = dynamic_cast<Photo *>(postare);
-    }
-    if (dynamic_cast<Check_in *>(postare)) {
-        obj = dynamic_cast<Check_in *>(postare);
-    }
-    if (dynamic_cast<Live *>(postare)) {
-        obj = dynamic_cast<Live *>(postare);
-    }
-    if (obj == nullptr)
-        throw eroare_server("Nu a putut fi facut dynamic_cast.");
-    return obj;
-}
 
-void Account::share(unsigned int id, Account *cont2) {
+void Account::share(unsigned int id, std::shared_ptr<Account> cont2) {
     if (id >= cont2->posts.size())
         throw eroare_client("ID-ul nu exista");
     std::shared_ptr<Post> shared_post = cont2->posts[id]->clone();

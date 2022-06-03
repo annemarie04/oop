@@ -29,5 +29,9 @@ int Live::scor_relevanta() {
 
 }
 
+std::shared_ptr<Post> Live::clone() const {
+    return std::make_shared<Live>(*this);
+}
+
 
 Live::~Live() = default;

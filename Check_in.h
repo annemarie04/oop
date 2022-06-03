@@ -23,9 +23,7 @@ public:
 
     void show_post() override;
 
-    [[nodiscard]] std::shared_ptr<Post> clone() const override {
-        return std::make_shared<Check_in>(*this);
-    }
+    [[nodiscard]] std::shared_ptr<Post> clone() const override;
 
 
     friend std::ostream &operator<<(std::ostream &os, const Check_in &in);

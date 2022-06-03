@@ -11,11 +11,6 @@ public:
     explicit my_exceptie(const std::string &arg) : runtime_error(arg) {}
 };
 
-class eroare_server : public my_exceptie {
-public:
-    explicit eroare_server(const std::string &arg) : my_exceptie(arg) {}
-};
-
 class eroare_client : public my_exceptie {
 public:
     explicit eroare_client(const std::string &arg) : my_exceptie(arg) {}
