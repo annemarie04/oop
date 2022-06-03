@@ -54,8 +54,12 @@ Account::Account(const Account &other) : username{other.username},
                                          target_audience{other.target_audience},
                                          likes{other.likes},
                                          pinned_post{other.pinned_post ? other.pinned_post->clone() : nullptr} {
-    for (const auto &post : other.posts) { posts.push_back(post->clone()); }
-    for (const auto &share : other.shares) { shares.push_back(share->clone()); }
+//    for (const auto &post : other.posts) { posts.push_back(post->clone()); }
+    //    for (const auto &share : other.shares) { shares.push_back(share->clone()); }
+    std::for_each(other.posts.begin(), other.posts.end(),
+                  [&](const std::shared_ptr<Post> &o) { posts.push_back(o->clone()); });
+    std::for_each(other.shares.begin(), other.shares.end(),
+                  [&](const std::shared_ptr<Post> &o) { shares.push_back(o->clone()); });
     for (const auto &it : other.likes) {
         likes.insert(std::pair<std::shared_ptr<Post>, bool>(it.first->clone(), it.second));
     }

@@ -33,7 +33,7 @@ public:
 
     [[nodiscard]] int getBrightness() const;
 
-    void setBrightness(int &b);
+    void setBrightness(const int &b);
 
     [[nodiscard]] int getContrast() const;
 

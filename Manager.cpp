@@ -49,9 +49,10 @@ std::shared_ptr<Account> Manager::get_top_account() {
     std::vector<std::shared_ptr<Account>> copy_accounts;
     copy_accounts = this->accounts;
 
-    sort(copy_accounts.begin(), copy_accounts.end(), [](std::shared_ptr<Account> &lhs, std::shared_ptr<Account> &rhs) {
-        return lhs->get_followers() > rhs->get_followers();
-    });
+    sort(copy_accounts.begin(), copy_accounts.end(),
+         [](const std::shared_ptr<Account> &lhs, const std::shared_ptr<Account> &rhs) {
+             return lhs->get_followers() > rhs->get_followers();
+         });
     return copy_accounts[0];
 }
 
@@ -64,7 +65,7 @@ std::shared_ptr<Account> Manager::find_account_by_username(const std::string &se
     return *it;
 }
 
-void Manager::swap_accounts(std::shared_ptr<Manager> &manager, const int id_account1, const int id_account2) {
+void Manager::swap_accounts(const std::shared_ptr<Manager> &manager, const int id_account1, const int id_account2) {
     Account::swap(*this->accounts[id_account1], *manager->accounts[id_account2]);
 }
 

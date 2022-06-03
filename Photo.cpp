@@ -19,7 +19,7 @@ int Photo::getBrightness() const {
     return brightness;
 }
 
-void Photo::setBrightness(int &b) {
+void Photo::setBrightness(const int &b) {
     this->brightness = b;
 }
 
