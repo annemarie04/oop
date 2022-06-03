@@ -51,7 +51,7 @@ public:
 
     void setFilePath(const std::string &filePath);
 
-    void edit_photo(int &new_brightness, const int &new_contrast, const int &new_saturation);
+    void edit_photo(const int &new_brightness, const int &new_contrast, const int &new_saturation);
 };
 
 

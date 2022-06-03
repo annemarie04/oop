@@ -69,7 +69,7 @@ int Photo::scor_relevanta() {
     return scor;
 }
 
-void Photo::edit_photo(int &new_brightness, const int &new_contrast, const int &new_saturation) {
+void Photo::edit_photo(const int &new_brightness, const int &new_contrast, const int &new_saturation) {
     this->setBrightness(new_brightness);
     this->setContrast(new_contrast);
     this->setSaturation(new_saturation);
