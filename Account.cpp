@@ -54,9 +54,11 @@ Account::Account(const Account &other) : username{other.username},
                                          target_audience{other.target_audience},
                                          likes{other.likes},
                                          pinned_post{other.pinned_post ? other.pinned_post->clone() : nullptr} {
-    for (auto post : other.posts) { posts.push_back(post->clone()); }
-    for (auto share : other.shares) { shares.push_back(share->clone()); }
-    for (auto it : other.likes) { likes.insert(std::pair<std::shared_ptr<Post>, bool>(it.first->clone(), it.second)); }
+    for (const auto &post : other.posts) { posts.push_back(post->clone()); }
+    for (const auto &share : other.shares) { shares.push_back(share->clone()); }
+    for (const auto &it : other.likes) {
+        likes.insert(std::pair<std::shared_ptr<Post>, bool>(it.first->clone(), it.second));
+    }
 }
 
 
@@ -84,20 +86,18 @@ const std::vector<std::shared_ptr<Post>> &Account::getPosts() const {
     return posts;
 }
 
-void Account::setPosts(const std::vector<std::shared_ptr<Post>> &p) {
-    Account::posts = p;
-}
+
 
 //getters
 std::string Account::get_username() {
     return this->username;
 }
 
-int Account::get_followers() {
+int Account::get_followers() const {
     return this->followers;
 }
 
-int Account::get_following() {
+[[maybe_unused]] int Account::get_following() const {
     return this->following;
 }
 
@@ -189,14 +189,15 @@ void Account::sort_posts_by_likes() {
         throw eroare_client("Nu exista postari");
     }
 
-    sort(this->posts.begin(), this->posts.end(), [](std::shared_ptr<Post> lhs, std::shared_ptr<Post> rhs) {
-        return lhs->get_likes() > rhs->get_likes();
-    });
+    sort(this->posts.begin(), this->posts.end(),
+         [](const std::shared_ptr<Post> &lhs, const std::shared_ptr<Post> &rhs) {
+             return lhs->get_likes() > rhs->get_likes();
+         });
 
 }
 
 
-const std::shared_ptr<Post> Account::find_post_by_theme(const std::string &searched_theme) {
+std::shared_ptr<Post> Account::find_post_by_theme(const std::string &searched_theme) {
 
     int index = 0, searched_index = -1;
     for (auto &post : this->posts) {
@@ -209,7 +210,7 @@ const std::shared_ptr<Post> Account::find_post_by_theme(const std::string &searc
 }
 
 
-void Account::share(unsigned int id, std::shared_ptr<Account> cont2) {
+void Account::share(unsigned int id, const std::shared_ptr<Account> &cont2) {
     if (id >= cont2->posts.size())
         throw eroare_client("ID-ul nu exista");
     std::shared_ptr<Post> shared_post = cont2->posts[id]->clone();

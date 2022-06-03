@@ -1,15 +1,13 @@
 #include <iostream>
-#include <vector>
 #include<algorithm>
-#include <cstring>
 #include "Account.h"
 #include "Manager.h"
 #include "my_exceptie.h"
 
-void create_feed(std::shared_ptr<Account> a, int b, int c, int s) {
-    for (auto post : a->getPosts()) {
+void create_feed(const std::shared_ptr<Account> &a, int b, const int c, const int s) {
+    for (const auto &post : a->getPosts()) {
         if (dynamic_cast<Photo *>(post.get())) {
-            Photo *p = dynamic_cast<Photo *>(post.get());
+            auto *p = dynamic_cast<Photo *>(post.get());
             p->edit_photo(b, c, s);
         }
     }
@@ -55,9 +53,15 @@ int main() {
         acc1->show_shared();
         acc1->pin_post(1);
         acc1->delete_pin();
+        std::cout << acc1->get_following();
+        std::cout << acc1->get_followers();
+        std::cout << acc1->get_audience();
+
+
     } catch (my_exceptie &err) {
         std::cout << err.what();
     }
+    create_feed(acc1, 10, 20, 30);
 
     m1->add_account(acc1);
     m1->add_account(acc2);
@@ -70,6 +74,18 @@ int main() {
 
     std::cout << p1.scor_relevanta();
     p1.setNoComments(4);
+    std::cout << p1.getBrightness();
+    std::cout << p1.getContrast();
+    std::cout << p1.getSaturation();
+    p1.setFilePath("this_pic.idk");
+    p1.setFilter("clarendon");
+    std::cout << p1.getFilePath();
+    std::cout << p1.getFilter();
+
+
+
+
+
 //    acc1->get_posts();
 //
 //    create_feed(acc1, 10, 20, 30);

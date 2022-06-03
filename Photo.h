@@ -29,29 +29,29 @@ public:
 
     int scor_relevanta() override;
 
-    virtual ~Photo();
+     ~Photo() override;
 
-    int getBrightness() const;
+    [[nodiscard]] int getBrightness() const;
 
     void setBrightness(int &b);
 
-    int getContrast() const;
+    [[nodiscard]] int getContrast() const;
 
     void setContrast(int c);
 
-    int getSaturation() const;
+    [[nodiscard]] int getSaturation() const;
 
     void setSaturation(int s);
 
-    const std::string &getFilter() const;
+    [[nodiscard]] const std::string &getFilter() const;
 
     void setFilter(const std::string &f);
 
-    const std::string &getFilePath() const;
+    [[nodiscard]] const std::string &getFilePath() const;
 
     void setFilePath(const std::string &filePath);
 
-    void edit_photo(int &new_brightness, int &new_contrast, int &new_saturation);
+    void edit_photo(int &new_brightness, const int &new_contrast, const int &new_saturation);
 };
 
 

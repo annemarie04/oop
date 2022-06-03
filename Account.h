@@ -62,9 +62,9 @@ public:
     //getters
     std::string get_username();
 
-    int get_followers();
+    int get_followers() const;
 
-    int get_following();
+    int get_following() const;
 
     void show_post(unsigned int id);
 
@@ -77,9 +77,9 @@ public:
     void sort_posts_by_likes();
 
     // find
-    const std::shared_ptr<Post> find_post_by_theme(const std::string &searched_theme);
+    std::shared_ptr<Post> find_post_by_theme(const std::string &searched_theme);
 
-    void share(unsigned int id, std::shared_ptr<Account> cont2);
+    void share(unsigned int id, const std::shared_ptr<Account> &cont2);
 
     void show_shared();
 
@@ -89,9 +89,8 @@ public:
 
     void show_pin();
 
-    const std::vector<std::shared_ptr<Post>> &getPosts() const;
+    [[nodiscard]] const std::vector<std::shared_ptr<Post>> &getPosts() const;
 
-    void setPosts(const std::vector<std::shared_ptr<Post>> &posts);
 
     // Destructor
     ~Account();
