@@ -4,9 +4,8 @@
 #include "Live_builder.h"
 
 
-Live_builder::Live_builder() = default;
+Live_builder::Live_builder() {}
 
-Live_builder::~Live_builder() {}
 
 Live_builder &Live_builder::likes(int no_likes) {
     post.no_likes = no_likes;
@@ -46,5 +45,8 @@ Live_builder &Live_builder::ending_time(int ending_time) {
 Live Live_builder::build() {
     return post;
 }
+
+Live_builder::~Live_builder() {}
+
 
 

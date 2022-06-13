@@ -110,39 +110,8 @@ int main() {
         acc1->new_following();
         acc1->new_follower();
         acc2->change_audience("mothers");
-//        std::cout << acc2->get_following() << "\n";
-        acc2->show_post(1);
-        std::cout << acc2->get_audience() << "\n";
-        acc2->show_my_likes();
-        acc2->show_posts();
-        acc2->sort_posts_by_likes();
-        std::cout << *acc2->find_post_by_theme("coffee shops") << "\n";
-        acc1->share(1, acc2);
-        acc1->show_shared();
-        acc1->pin_post(1);
-        acc1->delete_pin();
-        std::cout << acc1->get_following() << "\n";
-        std::cout << acc1->get_followers() << "\n";
-        std::cout << acc1->get_audience() << "\n";
+        std::cout << acc2->get_following() << "\n";
 
-        edit_feed(acc1, 10, 20, 30);
-
-        std::cout << m1->get_name() << "\n";
-        std::cout << *m1->get_top_account() << "\n";
-        std::cout << *m1->find_account_by_username("jane.doe") << "\n";
-        m2->swap_accounts(m3, 0, 0);
-
-        std::cout << p1.scor_relevanta() << "\n";
-        p1.setNoComments(4);
-        std::cout << p1.getBrightness() << "\n";
-        std::cout << p1.getContrast() << "\n";
-        std::cout << p1.getSaturation() << "\n";
-        p1.setFilePath("this_pic.idk");
-        p1.setFilter("clarendon");
-        std::cout << p1.getFilePath() << "\n";
-        std::cout << p1.getFilter() << "\n";
-        m2->changeContact("Richard_Morison");
-        std::cout << m2->getContact() << "\n";
     } catch (my_exceptie &err) {
         std::cout << err.what();
     }

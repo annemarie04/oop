@@ -4,9 +4,8 @@
 
 #include "Checkin_builder.h"
 
-Checkin_builder::Checkin_builder() = default;
+Checkin_builder::Checkin_builder() {}
 
-Checkin_builder::~Checkin_builder() {}
 
 Checkin_builder &Checkin_builder::likes(int no_likes) {
     post.no_likes = no_likes;
@@ -46,3 +45,6 @@ Checkin_builder &Checkin_builder::country(const std::string &country) {
 Check_in Checkin_builder::build() {
     return post;
 }
+
+Checkin_builder::~Checkin_builder() {}
+

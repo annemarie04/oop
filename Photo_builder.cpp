@@ -3,7 +3,7 @@
 //
 #include "Photo_builder.h"
 
-Photo_builder::Photo_builder() = default;
+Photo_builder::Photo_builder() {}
 
 Photo_builder::~Photo_builder() {}
 
