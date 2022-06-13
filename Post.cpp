@@ -10,8 +10,6 @@
 Post::Post() {
     no_likes = 0;
     no_comments = 0;
-    hashtags = {};
-    theme = "";
 }
 
 // Constructor Copiere

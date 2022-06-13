@@ -6,14 +6,14 @@
 
 Live_builder::Live_builder() = default;
 
-Live_builder::~Live_builder() {};
+Live_builder::~Live_builder() {}
 
 Live_builder &Live_builder::likes(int no_likes) {
     post.no_likes = no_likes;
     return *this;
 }
 
-Live_builder &Live_builder::hashtags(std::vector<std::string> hashtags) {
+Live_builder &Live_builder::hashtags(const std::vector<std::string> &hashtags) {
     post.hashtags = hashtags;
     return *this;
 }
@@ -23,7 +23,7 @@ Live_builder &Live_builder::comments(int no_comments) {
     return *this;
 }
 
-Live_builder &Live_builder::theme(std::string theme) {
+Live_builder &Live_builder::theme(const std::string &theme) {
     post.theme = theme;
     return *this;
 }

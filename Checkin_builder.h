@@ -15,17 +15,17 @@ public:
 
     Checkin_builder &likes(int no_likes);
 
-    Checkin_builder &hashtags(std::vector<std::string> hashtags);
+    Checkin_builder &hashtags(const std::vector<std::string> &hashtags);
 
     Checkin_builder &comments(int no_comments);
 
-    Checkin_builder &theme(std::string theme);
+    Checkin_builder &theme(const std::string &theme);
 
-    Checkin_builder &adress(std::string adress);
+    Checkin_builder &adress(const std::string &adress);
 
-    Checkin_builder &city(std::string city);
+    Checkin_builder &city(const std::string &city);
 
-    Checkin_builder &country(std::string country);
+    Checkin_builder &country(const std::string &country);
 
     Check_in build();
 

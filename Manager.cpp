@@ -81,7 +81,7 @@ Manager<T>::swap_accounts(const std::shared_ptr<Manager<T>> &manager, const int 
 }
 
 template<typename T>
-void Manager<T>::changeInfo(T new_info) {
+void Manager<T>::changeInfo(const T &new_info) {
     this->info = new_info;
 }
 

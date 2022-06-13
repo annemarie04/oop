@@ -51,7 +51,7 @@ public:
 
     void swap_accounts(const std::shared_ptr<Manager<T>> &manager, const int id_account1, const int id_account2);
 
-    void changeInfo(T new_info);
+    void changeInfo(const T &new_info);
 
     T getInfo();
 

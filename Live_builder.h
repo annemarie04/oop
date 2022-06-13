@@ -15,11 +15,11 @@ public:
 
     Live_builder &likes(int no_likes);
 
-    Live_builder &hashtags(std::vector<std::string> hashtags);
+    Live_builder &hashtags(const std::vector<std::string> &hashtags);
 
     Live_builder &comments(int no_comments);
 
-    Live_builder &theme(std::string theme);
+    Live_builder &theme(const std::string &theme);
 
     Live_builder &people_watching(int people_watching);
 

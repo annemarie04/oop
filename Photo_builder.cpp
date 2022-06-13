@@ -5,14 +5,14 @@
 
 Photo_builder::Photo_builder() = default;
 
-Photo_builder::~Photo_builder() {};
+Photo_builder::~Photo_builder() {}
 
 Photo_builder &Photo_builder::likes(int no_likes) {
     post.no_likes = no_likes;
     return *this;
 }
 
-Photo_builder &Photo_builder::hashtags(std::vector<std::string> hashtags) {
+Photo_builder &Photo_builder::hashtags(const std::vector<std::string> &hashtags) {
     post.hashtags = hashtags;
     return *this;
 }
@@ -22,7 +22,7 @@ Photo_builder &Photo_builder::comments(int no_comments) {
     return *this;
 }
 
-Photo_builder &Photo_builder::theme(std::string theme) {
+Photo_builder &Photo_builder::theme(const std::string &theme) {
     post.theme = theme;
     return *this;
 }
@@ -42,12 +42,12 @@ Photo_builder &Photo_builder::saturation(int saturation) {
     return *this;
 }
 
-Photo_builder &Photo_builder::filter(std::string filter) {
+Photo_builder &Photo_builder::filter(const std::string &filter) {
     post.filter = filter;
     return *this;
 }
 
-Photo_builder &Photo_builder::file_path(std::string file_path) {
+Photo_builder &Photo_builder::file_path(const std::string &file_path) {
     post.file_path = file_path;
     return *this;
 }
