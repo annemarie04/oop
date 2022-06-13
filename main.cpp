@@ -77,7 +77,6 @@ int main() {
     std::shared_ptr<Account> acc2 = Account_factory::create_fast_account("jim.carry");
     std::shared_ptr<Account> acc3 = Account_factory::create_fashion_influencer("bella_");
     std::shared_ptr<Account> acc4 = Account_factory::create_travel_influencer("BackPack_yourlife");
-    std::shared_ptr<Account> acc5 = Account_factory::create_crypto_influencer("BackPack_yourlife");
 
 
     std::shared_ptr<Manager<int>> m1 = std::make_shared<Manager<int>>(Manager<int>("Ioana", 123));
@@ -91,7 +90,6 @@ int main() {
         m1->add_account(acc1);
         m1->add_account(acc4);
         m2->add_account(acc2);
-        m2->add_account(acc5);
         m3->add_account(acc3);
         acc1->add_photo(p1);
         acc1->add_check_in(c1);
