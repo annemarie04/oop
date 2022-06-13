@@ -103,7 +103,7 @@ int main() {
         acc1->new_following();
         acc1->new_follower();
         acc2->change_audience("mothers");
-        std::cout << acc2->get_following() << "\n";
+//        std::cout << acc2->get_following() << "\n";
         acc2->show_post(1);
         std::cout << acc2->get_audience() << "\n";
         acc2->show_my_likes();
