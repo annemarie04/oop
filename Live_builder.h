@@ -9,6 +9,7 @@
 #include "Live.h"
 
 class Live_builder {
+private:
     Live post;
 public:
     Live_builder();

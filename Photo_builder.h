@@ -10,6 +10,7 @@
 #include "Photo.h"
 
 class Photo_builder {
+private:
     Photo post;
 public:
     Photo_builder();

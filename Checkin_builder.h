@@ -9,6 +9,7 @@
 #include "Check_in.h"
 
 class Checkin_builder {
+private:
     Check_in post;
 public:
     Checkin_builder();
