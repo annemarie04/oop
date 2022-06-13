@@ -10,15 +10,15 @@
 
 class Account_factory {
 public:
-    static std::shared_ptr<Account> create_fast_account(std::string username);
+    static std::shared_ptr<Account> create_fast_account(const std::string &username);
 
-    static std::shared_ptr<Account> create_crypto_influencer(std::string username);
+    static std::shared_ptr<Account> create_crypto_influencer(const std::string &username);
 
-    static std::shared_ptr<Account> create_fashion_influencer(std::string username);
+    static std::shared_ptr<Account> create_fashion_influencer(const std::string &username);
 
-    static std::shared_ptr<Account> create_travel_influencer(std::string username);
+    static std::shared_ptr<Account> create_travel_influencer(const std::string &username);
 
-    static std::shared_ptr<Account> create_kid_account(std::string username);
+    static std::shared_ptr<Account> create_kid_account(const std::string &username);
 };
 
 
