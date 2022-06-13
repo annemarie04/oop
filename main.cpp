@@ -19,7 +19,6 @@ void edit_feed(const std::shared_ptr<Account> &a, int b, const int c, const int 
 
 int main() {
 
-    std::cout << "APP STARTED:\n";
     Photo_builder photo_builder;
     Live_builder live_builder;
     Checkin_builder checkin_builder;

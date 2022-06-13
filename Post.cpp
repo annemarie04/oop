@@ -7,10 +7,7 @@
 #include "Post.h"
 
 // Constructor de Initiere
-Post::Post() {
-    no_likes = 0;
-    no_comments = 0;
-}
+Post::Post() : no_likes(0), no_comments(0), hashtags({""}), theme("") {}
 
 // Constructor Copiere
 Post::Post(const Post &other) : no_likes{other.no_likes}, no_comments{other.no_comments}, hashtags{other.hashtags},

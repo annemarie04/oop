@@ -4,7 +4,7 @@
 #include "Post.h"
 #include "Live.h"
 
-Live::Live() = default;
+Live::Live() : people_watching(0), starting_time(0), ending_time(0) {}
 
 std::ostream &operator<<(std::ostream &os, const Live &live) {
     os << static_cast<const Post &>(live) << " people_watching: " << live.people_watching << " starting_time: "

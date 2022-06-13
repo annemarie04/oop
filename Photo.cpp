@@ -4,7 +4,7 @@
 
 #include "Photo.h"
 
-Photo::Photo() = default;
+Photo::Photo() : brightness(0), contrast(0), saturation(0), filter(""), file_path("") {}
 
 std::ostream &operator<<(std::ostream &os, const Photo &photo) {
     os << static_cast<const Post &>(photo) << " brightness: " << photo.brightness << " contrast: " << photo.contrast
