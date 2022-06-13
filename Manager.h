@@ -24,10 +24,10 @@ template<typename T>
 class Manager {
     std::string name;
     std::vector<std::shared_ptr<Account>> accounts;
-    T info;
+    T contact;
 public:
     //Constructor de Initiere
-    explicit Manager(const std::string &name, const T &info);
+    explicit Manager(const std::string &name, const T &contact);
 
     //Operator == (de verificare)
     bool operator==(const Manager &mg) const;
@@ -51,9 +51,9 @@ public:
 
     void swap_accounts(const std::shared_ptr<Manager<T>> &manager, const int id_account1, const int id_account2);
 
-    void changeInfo(const T &new_info);
+    void changeContact(const T &new_contact);
 
-    T getInfo();
+    T getContact();
 
     // Destructor
     ~Manager();

@@ -9,7 +9,7 @@
 
 template<typename T>
 //Constructor de Initiere
-Manager<T>::Manager(const std::string &name, const T &info) : name(name), info(info) {}
+Manager<T>::Manager(const std::string &name, const T &contact) : name(name), contact(contact) {}
 //Operator == (de egalitate)
 
 template<typename T>
@@ -27,7 +27,7 @@ std::ostream &operator<<(std::ostream &os, const Manager<T> &manager) {
         std::cout << "contul " << i << " : " << *conturi << '\n';
         i++;
     }
-    os << "info: " << manager.info << '\n';
+    os << "contact: " << manager.contact << '\n';
     return os;
 }
 
@@ -81,11 +81,11 @@ Manager<T>::swap_accounts(const std::shared_ptr<Manager<T>> &manager, const int 
 }
 
 template<typename T>
-void Manager<T>::changeInfo(const T &new_info) {
-    this->info = new_info;
+void Manager<T>::changeContact(const T &new_contact) {
+    this->contact = new_contact;
 }
 
 template<typename T>
-T Manager<T>::getInfo() {
-    return this->info;
+T Manager<T>::getContact() {
+    return this->contact;
 }
