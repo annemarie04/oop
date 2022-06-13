@@ -101,7 +101,7 @@ int Account::get_followers() const {
     return this->followers;
 }
 
-[[maybe_unused]] int Account::get_following() const {
+int Account::get_following() const {
     return this->following;
 }
 
