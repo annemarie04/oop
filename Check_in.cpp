@@ -4,7 +4,7 @@
 
 #include "Check_in.h"
 
-Check_in::Check_in() : adress(""), city(""), country("") {}
+Check_in::Check_in() : Post(), adress(""), city(""), country("") {}
 
 std::ostream &operator<<(std::ostream &os, const Check_in &in) {
     os << static_cast<const Post &>(in) << " adress: " << in.adress << " city: " << in.city << " country: "
