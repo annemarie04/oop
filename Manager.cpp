@@ -7,45 +7,53 @@
 #include "Manager.h"
 #include "Account.h"
 
+template<typename T>
 //Constructor de Initiere
-Manager::Manager(const std::string &name) : name(name) {}
-
+Manager<T>::Manager(const std::string &name, const T &info) : name(name), info(info) {}
 //Operator == (de egalitate)
-bool Manager::operator==(const Manager &mg) const {
+
+template<typename T>
+bool Manager<T>::operator==(const Manager &mg) const {
     return name == mg.name &&
            accounts == mg.accounts;
 }
 
+template<typename T>
 // Operator << // avea friend
-std::ostream &operator<<(std::ostream &os, const Manager &manager) {
+std::ostream &operator<<(std::ostream &os, const Manager<T> &manager) {
     os << "name: " << manager.name << "\naccounts: \n";
     int i = 1;
     for (const auto &conturi: manager.accounts) {
-        std::cout << "contul " << i << " : " << conturi << '\n';
+        std::cout << "contul " << i << " : " << *conturi << '\n';
         i++;
     }
+    os << "info: " << manager.info << '\n';
     return os;
 }
 
-
+template<typename T>
 // Destructor
-Manager::~Manager() {}
+Manager<T>::~Manager() {}
 
+template<typename T>
 //setters
-void Manager::change_name(std::string const &new_name) {
+void Manager<T>::change_name(std::string const &new_name) {
     this->name = new_name;
 }
 
-void Manager::add_account(const std::shared_ptr<Account> &new_account) {
+template<typename T>
+void Manager<T>::add_account(const std::shared_ptr<Account> &new_account) {
     this->accounts.push_back(new_account);
 }
 
+template<typename T>
 //getters
-std::string Manager::get_name() {
+std::string Manager<T>::get_name() {
     return this->name;
 }
 
-std::shared_ptr<Account> Manager::get_top_account() {
+template<typename T>
+std::shared_ptr<Account> Manager<T>::get_top_account() {
     std::vector<std::shared_ptr<Account>> copy_accounts;
     copy_accounts = this->accounts;
 
@@ -56,8 +64,9 @@ std::shared_ptr<Account> Manager::get_top_account() {
     return copy_accounts[0];
 }
 
+template<typename T>
 // find account by username
-std::shared_ptr<Account> Manager::find_account_by_username(const std::string &searched_username) {
+std::shared_ptr<Account> Manager<T>::find_account_by_username(const std::string &searched_username) {
     auto it = std::find_if(this->accounts.begin(), this->accounts.end(),
                            [searched_username](std::shared_ptr<Account> &account) {
                                return account->get_username() == searched_username;
@@ -65,7 +74,18 @@ std::shared_ptr<Account> Manager::find_account_by_username(const std::string &se
     return *it;
 }
 
-void Manager::swap_accounts(const std::shared_ptr<Manager> &manager, const int id_account1, const int id_account2) {
+template<typename T>
+void
+Manager<T>::swap_accounts(const std::shared_ptr<Manager<T>> &manager, const int id_account1, const int id_account2) {
     Account::swap(*this->accounts[id_account1], *manager->accounts[id_account2]);
 }
 
+template<typename T>
+void Manager<T>::changeInfo(T new_info) {
+    this->info = new_info;
+}
+
+template<typename T>
+T Manager<T>::getInfo() {
+    return this->info;
+}

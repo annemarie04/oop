@@ -7,13 +7,12 @@
 #include "Post.h"
 
 // Constructor de Initiere
-Post::Post(int noLikes, int noComments, const std::vector<std::string> &hashtags, const std::string &theme) : no_likes(
-        noLikes),
-                                                                                                              no_comments(
-                                                                                                                      noComments),
-                                                                                                              hashtags(
-                                                                                                                      hashtags),
-                                                                                                              theme(theme) {}
+Post::Post() {
+    no_likes = 0;
+    no_comments = 0;
+    hashtags = {};
+    theme = "";
+}
 
 // Constructor Copiere
 Post::Post(const Post &other) : no_likes{other.no_likes}, no_comments{other.no_comments}, hashtags{other.hashtags},
@@ -89,5 +88,7 @@ void Post::setNoComments(int noComments) {
 int Post::scor_relevanta() {
     return (this->no_likes * 3 + this->no_comments * 7) / 10;
 }
+
+
 
 

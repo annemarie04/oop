@@ -26,7 +26,6 @@ class Account {
     std::vector<std::shared_ptr<Post>> shares;
     std::shared_ptr<Post> pinned_post = nullptr;
 
-
 public:
     // Constructor de Initiere
     Account(const std::string &username, int followers, int following, const std::string &targetAudience);

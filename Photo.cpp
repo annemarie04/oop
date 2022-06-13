@@ -4,10 +4,7 @@
 
 #include "Photo.h"
 
-Photo::Photo(int noLikes, int noComments, const std::vector<std::string> &hashtags, const std::string &theme,
-             int brightness, int contrast, int saturation, const std::string &filter, const std::string &filePath)
-        : Post(noLikes, noComments, hashtags, theme), brightness(brightness), contrast(contrast),
-          saturation(saturation), filter(filter), file_path(filePath) {}
+Photo::Photo() = default;
 
 std::ostream &operator<<(std::ostream &os, const Photo &photo) {
     os << static_cast<const Post &>(photo) << " brightness: " << photo.brightness << " contrast: " << photo.contrast

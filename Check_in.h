@@ -16,9 +16,10 @@ class Check_in : public Post {
     std::string city;
     std::string country;
 
+    friend class Checkin_builder;
+
 public:
-    Check_in(int noLikes, int noComments, const std::vector<std::string> &hashtags, const std::string &theme,
-             const std::string &adress, const std::string &city, const std::string &country);
+    Check_in();
 
 
     void show_post() override;

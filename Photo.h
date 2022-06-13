@@ -16,9 +16,10 @@ class Photo : public Post {
     std::string filter;
     std::string file_path;
 
+    friend class Photo_builder;
+
 public:
-    Photo(int noLikes, int noComments, const std::vector<std::string> &hashtags, const std::string &theme,
-          int brightness, int contrast, int saturation, const std::string &filter, const std::string &filePath);
+    Photo();
 
     void show_post() override;
 

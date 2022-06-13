@@ -17,9 +17,15 @@ class Post {
     std::vector<std::string> hashtags;
     std::string theme;
 
+    friend class Photo_builder;
+
+    friend class Live_builder;
+
+    friend class Checkin_builder;
+
 public:
     // Constructor de Initiere
-    Post(int noLikes, int noComments, const std::vector<std::string> &hashtags, const std::string &theme);
+    Post();
 
     // Operator ==(de verificare)
     bool operator==(const Post &postare) const;
@@ -36,6 +42,7 @@ public:
 
     // Constructor Copiere
     Post(const Post &other);
+
 
     // Destructor
     virtual ~Post();
@@ -61,5 +68,12 @@ public:
     int getNoComments() const;
 
     void setNoComments(int noComments);
+
+    class Builder {
+        Builder() {}
+
+        Builder &no_likes(int no_likes);
+    };
+
 };
 #endif //OOP_POST_H

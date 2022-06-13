@@ -12,19 +12,28 @@
 #include "Account.h"
 #include "Post.h"
 
+template<typename T>
+class Manager;
+
+template<typename T>
+std::ostream &operator<<(std::ostream &o, const Manager<T> &manager);
+
+
+template<typename T>
+
 class Manager {
     std::string name;
     std::vector<std::shared_ptr<Account>> accounts;
+    T info;
 public:
     //Constructor de Initiere
-    explicit Manager(const std::string &name);
+    explicit Manager(const std::string &name, const T &info);
 
     //Operator == (de verificare)
     bool operator==(const Manager &mg) const;
 
     // Operator <<
-    friend std::ostream &operator<<(std::ostream &os, const Manager &manager);
-
+    friend std::ostream &operator<<<>(std::ostream &os, const Manager &manager);
 
 
     //setters
@@ -40,7 +49,11 @@ public:
     // find account by username
     std::shared_ptr<Account> find_account_by_username(const std::string &searched_username);
 
-    void swap_accounts(const std::shared_ptr<Manager> &manager, const int id_account1, const int id_account2);
+    void swap_accounts(const std::shared_ptr<Manager<T>> &manager, const int id_account1, const int id_account2);
+
+    void changeInfo(T new_info);
+
+    T getInfo();
 
     // Destructor
     ~Manager();

@@ -15,9 +15,10 @@ class Live : public Post {
     int starting_time;
     int ending_time;
 
+    friend class Live_builder;
+
 public:
-    Live(int noLikes, int noComments, const std::vector<std::string> &hashtags, const std::string &theme,
-         int people_watching, int starting_time, int ending_time);
+    Live();
 
     void show_post() override;
 

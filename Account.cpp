@@ -117,7 +117,7 @@ void
 Account::add_photo(Photo &photo) {
     std::shared_ptr<Post> photo_sp = std::make_shared<Photo>(photo);
     this->posts.push_back(photo_sp);
-    std::cout << "Type: " << typeid(photo_sp.get()).name() << "\n";
+//    std::cout << "Type: " << typeid(photo_sp.get()).name() << "\n";
 
 }
 
@@ -135,9 +135,10 @@ void Account::add_live(Live &live) {
 
 void Account::show_post(unsigned int id) {
     if (id >= this->posts.size())
-        throw eroare_client("ID-ul nu exista");
+        throw eroare_client("ID-ul nu exista\n");
     std::cout << "Post ID: " << id << "\n";
     this->posts[id]->show_post();
+    std::cout << "\n";
 }
 
 void Account::show_posts() {
@@ -158,10 +159,10 @@ void Account::show_posts() {
 //setters in functie de id
 void Account::do_like(unsigned int id) {
     if (id >= this->posts.size())
-        throw eroare_client("ID-ul nu exista");
+        throw eroare_client("ID-ul nu exista\n");
 
     if (this->likes.count(this->posts[id])) {
-        throw eroare_client("Ai dat deja like");
+        throw eroare_client("Ai dat deja like\n");
     }
     this->likes.insert(std::pair<std::shared_ptr<Post>, bool>(this->posts[id], true));
     this->posts[id]->increment_no_likes();
@@ -171,9 +172,9 @@ void Account::do_like(unsigned int id) {
 
 void Account::do_unlike(unsigned int id) {
     if (id >= this->posts.size())
-        throw eroare_client("ID-ul nu exista");
+        throw eroare_client("ID-ul nu exista\n");
     if (!this->likes.count(this->posts[id])) {
-        throw eroare_client("Nu ai dat inca like");
+        throw eroare_client("Nu ai dat inca like\n");
     }
     auto it = likes.find(this->posts[id]);
     likes.erase(it);
@@ -190,7 +191,7 @@ void Account::show_my_likes() {
 //get_top_post
 void Account::sort_posts_by_likes() {
     if (this->posts.empty()) {
-        throw eroare_client("Nu exista postari");
+        throw eroare_client("Nu exista postari\n");
     }
 
     sort(this->posts.begin(), this->posts.end(),
@@ -210,13 +211,15 @@ std::shared_ptr<Post> Account::find_post_by_theme(const std::string &searched_th
         }
         index++;
     }
+    if (searched_index == -1)
+        throw eroare_client("Postarea cu tema data nu exista\n");
     return this->posts[searched_index];
 }
 
 
 void Account::share(unsigned int id, const std::shared_ptr<Account> &cont2) {
     if (id >= cont2->posts.size())
-        throw eroare_client("ID-ul nu exista");
+        throw eroare_client("ID-ul nu exista\n");
     std::shared_ptr<Post> shared_post = cont2->posts[id]->clone();
     this->shares.push_back(shared_post);
 
@@ -225,13 +228,14 @@ void Account::share(unsigned int id, const std::shared_ptr<Account> &cont2) {
 void Account::show_shared() {
     for (auto &share : shares) {
         share->show_post();
+        std::cout << "\n";
+
     }
 }
 
 void Account::pin_post(unsigned int id) {
-
     if (id >= this->posts.size())
-        throw eroare_client("ID-ul nu exista");
+        throw eroare_client("ID-ul nu exista\n");
     this->pinned_post = this->posts[id];
     this->posts.erase(this->posts.begin() + id);
 }
@@ -242,7 +246,6 @@ void Account::delete_pin() {
     }
     this->posts.push_back(pinned_post);
     pinned_post = nullptr;
-
 }
 
 void Account::show_pin() {

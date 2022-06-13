@@ -4,11 +4,7 @@
 #include "Post.h"
 #include "Live.h"
 
-Live::Live(int noLikes, int noComments, const std::vector<std::string> &hashtags, const std::string &theme,
-           int people_watching, int starting_time, int ending_time) : Post(noLikes, noComments, hashtags, theme),
-                                                                      people_watching(people_watching),
-                                                                      starting_time(starting_time),
-                                                                      ending_time(ending_time) {}
+Live::Live() = default;
 
 std::ostream &operator<<(std::ostream &os, const Live &live) {
     os << static_cast<const Post &>(live) << " people_watching: " << live.people_watching << " starting_time: "

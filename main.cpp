@@ -1,11 +1,14 @@
 #include <iostream>
-#include<algorithm>
 #include "Account.h"
 #include "Manager.h"
 #include "my_exceptie.h"
+#include "Photo_builder.h"
+#include "Live_builder.h"
+#include "Checkin_builder.h"
+#include "Account_factory.h"
 
-void create_feed(const std::shared_ptr<Account> &a, int b, const int c, const int s) {
-    for (const auto &post : a->getPosts()) {
+void edit_feed(const std::shared_ptr<Account> &a, int b, const int c, const int s) {
+    for (const auto &post: a->getPosts()) {
         if (dynamic_cast<Photo *>(post.get())) {
             auto *p = dynamic_cast<Photo *>(post.get());
             p->edit_photo(b, c, s);
@@ -17,94 +20,136 @@ void create_feed(const std::shared_ptr<Account> &a, int b, const int c, const in
 int main() {
 
     std::cout << "APP STARTED:\n";
+    Photo_builder photo_builder;
+    Live_builder live_builder;
+    Checkin_builder checkin_builder;
+    Photo p1 = photo_builder
+            .likes(0)
+            .comments(0)
+            .hashtags({"food", "organic", "vegan"})
+            .theme("healthy food")
+            .contrast(20)
+            .saturation(10)
+            .brightness(38)
+            .filter("Sienna")
+            .file_path("img1.jpg")
+            .build();
+    Photo p2 = photo_builder
+            .hashtags({"toy", "wood", "fun"})
+            .theme("old_school toys")
+            .saturation(50)
+            .contrast(50)
+            .brightness(18)
+            .filter("clarendon")
+            .file_path("pic2.jpg")
+            .build();
+    Live l1 = live_builder
+            .hashtags({"gaming", "player"})
+            .theme("gaming")
+            .people_watching(45)
+            .starting_time(17)
+            .ending_time(18)
+            .build();
+    Live l2 = live_builder
+            .hashtags({"make-up", "lip stick"})
+            .theme("make-up tutorial")
+            .people_watching(10)
+            .starting_time(12)
+            .ending_time(15)
+            .build();
+    Check_in c1 = checkin_builder
+            .hashtags({"burger", "lunch"})
+            .theme("fast food")
+            .adress("Burger King")
+            .city("Bucharest")
+            .country("Romania")
+            .build();
+    Check_in c2 = checkin_builder
+            .likes(19)
+            .hashtags({"latte", "cappuccino"})
+            .theme("coffee shops")
+            .adress("Forma Cafe")
+            .city("Bucharest")
+            .country("Romania")
+            .build();
 
-    Photo p1(0, 0, {"food", "organic", "vegan"}, "healthy food", 20, 10, 38, "Sienna", "pic1.jpg");
-    Photo p2(0, 0, {"toy", "wood", "fun"}, "old_school toys", 50, 60, 18, "clarendon", "pic2.jpg");
-    Live l1(0, 0, {"gaming", "player"}, "gaming", 45, 17, 18);
-    Live l2(0, 0, {"make-up", "lip stick"}, "make-up tutorial", 10, 12, 15);
-    Check_in c1(0, 0, {"latte", "cappuccino"}, "coffee shops", "Forma Cafe", "Bucharest", "Romania");
-    Check_in c2(0, 0, {"burger", "lunch"}, "fast food", "Burger King", "Bucharest", "Romania");
-    std::shared_ptr<Account> acc1 = std::make_shared<Account>(Account("jane.doe", 0, 0, "children"));
-    acc1->add_photo(p1);
-    acc1->add_check_in(c1);
-    acc1->add_live(l1);
-    std::shared_ptr<Account> acc2 = std::make_shared<Account>(Account("jim.carry", 0, 0, "teenagers"));
-    std::shared_ptr<Account> acc3 = std::make_shared<Account>(Account("jon_snow", 0, 0, "teenagers"));
-//    acc2->add_photo(p2);
-    acc2->add_check_in(c2);
-    acc2->add_live(l2);
 
-    std::shared_ptr<Manager> m1 = std::make_shared<Manager>(Manager("Ioana"));
-    std::shared_ptr<Manager> m2 = std::make_shared<Manager>(Manager("Dorel"));
+    std::shared_ptr<Account> acc1 = Account_factory::create_kid_account("jane.doe");
+    std::shared_ptr<Account> acc2 = Account_factory::create_fast_account("jim.carry");
+    std::shared_ptr<Account> acc3 = Account_factory::create_fashion_influencer("bella_");
+    std::shared_ptr<Account> acc4 = Account_factory::create_travel_influencer("BackPack_yourlife");
+    std::shared_ptr<Account> acc5 = Account_factory::create_crypto_influencer("BackPack_yourlife");
+
+
+    std::shared_ptr<Manager<int>> m1 = std::make_shared<Manager<int>>(Manager<int>("Ioana", 123));
+    std::shared_ptr<Manager<std::string>> m2 = std::make_shared<Manager<std::string>>(
+            Manager<std::string>("Richard", "Richard@invmarketing.com"));
+    std::shared_ptr<Manager<std::string>> m3 = std::make_shared<Manager<std::string>>(
+            Manager<std::string>("Cosmin", "Cosmin@gmail.com"));
+
+
     try {
-        acc1->do_like(2);
+        m1->add_account(acc1);
+        m1->add_account(acc4);
+        m2->add_account(acc2);
+        m2->add_account(acc5);
+        m3->add_account(acc3);
+        acc1->add_photo(p1);
+        acc1->add_check_in(c1);
+        acc1->add_live(l1);
+
+        acc2->add_check_in(c2);
+        acc2->add_live(l2);
+
+        m1->change_name("george");
+        acc1->do_like(1);
         acc1->do_unlike(1);
         acc1->new_following();
         acc1->new_follower();
         acc2->change_audience("mothers");
-        std::cout << acc2->get_following();
+        std::cout << acc2->get_following() << "\n";
         acc2->show_post(1);
-        std::cout << acc2->get_audience();
+        std::cout << acc2->get_audience() << "\n";
         acc2->show_my_likes();
         acc2->show_posts();
         acc2->sort_posts_by_likes();
-        std::cout << acc2->find_post_by_theme("old_school toys");
+        std::cout << *acc2->find_post_by_theme("fast food") << "\n";
         acc1->share(1, acc2);
         acc1->show_shared();
         acc1->pin_post(1);
         acc1->delete_pin();
-        std::cout << acc1->get_following();
-        std::cout << acc1->get_followers();
-        std::cout << acc1->get_audience();
+        std::cout << acc1->get_following() << "\n";
+        std::cout << acc1->get_followers() << "\n";
+        std::cout << acc1->get_audience() << "\n";
+        std::cout << acc2->find_post_by_theme("old_school toys") << "\n";
 
 
     } catch (my_exceptie &err) {
         std::cout << err.what();
     }
-    create_feed(acc1, 10, 20, 30);
+    try {
+        edit_feed(acc1, 10, 20, 30);
 
-    m1->add_account(acc1);
-    m1->add_account(acc2);
-    m2->add_account(acc3);
-    m1->change_name("george");
-    std::cout << m1->get_name();
-    std::cout << *m1->get_top_account();
-    std::cout << *m1->find_account_by_username("jane.doe");
-    m1->swap_accounts(m2, 0, 0);
+        std::cout << m1->get_name() << "\n";
+        std::cout << *m1->get_top_account() << "\n";
+        std::cout << *m1->find_account_by_username("jane.doe") << "\n";
+        m2->swap_accounts(m3, 0, 0);
 
-    std::cout << p1.scor_relevanta();
-    p1.setNoComments(4);
-    std::cout << p1.getBrightness();
-    std::cout << p1.getContrast();
-    std::cout << p1.getSaturation();
-    p1.setFilePath("this_pic.idk");
-    p1.setFilter("clarendon");
-    std::cout << p1.getFilePath();
-    std::cout << p1.getFilter();
+        std::cout << p1.scor_relevanta() << "\n";
+        p1.setNoComments(4);
+        std::cout << p1.getBrightness() << "\n";
+        std::cout << p1.getContrast() << "\n";
+        std::cout << p1.getSaturation() << "\n";
+        p1.setFilePath("this_pic.idk");
+        p1.setFilter("clarendon");
+        std::cout << p1.getFilePath() << "\n";
+        std::cout << p1.getFilter() << "\n";
+        m2->changeInfo("Richard_Morison");
+        std::cout << m2->getInfo() << "\n";
+    } catch (my_exceptie &err) {
+        std::cout << err.what();
+    }
 
-
-
-
-
-//    acc1->get_posts();
-//
-//    create_feed(acc1, 10, 20, 30);
-//    acc1->get_posts();
-
-//    std::cout << a3;
-//    std::cout << "-------------------------------------------/n";
-//    Account a1("a1",0, 0, "ceva"), a2("a2",0, 0, "altceva");
-//    a1.add_photo(p1);
-//    a2.add_photo(p2);
-//    Account a3{a2};
-//    Account a3 = a1;
-//
-//    std::cout << a3;
-//    std::cout << a1 << a2; // post 1 post 2
-//    a1 = a2;
-//    std::cout << a1 << a2; // post 2 post 2
-//    a2.get_post(2).update("Post 2");
-//    std::cout << a1 << a2; // Post 2 Post 2
 /*
     char input[100];
     int input_index = 0;

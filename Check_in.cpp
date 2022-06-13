@@ -4,14 +4,7 @@
 
 #include "Check_in.h"
 
-Check_in::Check_in(int noLikes, int noComments, const std::vector<std::string> &hashtags, const std::string &theme,
-                   const std::string &adress, const std::string &city, const std::string &country) : Post(noLikes,
-                                                                                                          noComments,
-                                                                                                          hashtags,
-                                                                                                          theme),
-                                                                                                     adress(adress),
-                                                                                                     city(city),
-                                                                                                     country(country) {}
+Check_in::Check_in() = default;
 
 std::ostream &operator<<(std::ostream &os, const Check_in &in) {
     os << static_cast<const Post &>(in) << " adress: " << in.adress << " city: " << in.city << " country: "
