@@ -34,6 +34,8 @@ int main() {
                 .file_path("img1.jpg")
                 .build();
         Photo p2 = photo_builder
+                .likes(12)
+                .comments(10)
                 .hashtags({"toy", "wood", "fun"})
                 .theme("old_school toys")
                 .saturation(50)
@@ -50,6 +52,8 @@ int main() {
                 .ending_time(18)
                 .build();
         Live l2 = live_builder
+                .likes(100)
+                .comments(52)
                 .hashtags({"make-up", "lip stick"})
                 .theme("make-up tutorial")
                 .people_watching(10)
@@ -57,6 +61,8 @@ int main() {
                 .ending_time(15)
                 .build();
         Check_in c1 = checkin_builder
+                .likes(30)
+                .comments(12)
                 .hashtags({"burger", "lunch"})
                 .theme("fast food")
                 .adress("Burger King")
@@ -65,6 +71,7 @@ int main() {
                 .build();
         Check_in c2 = checkin_builder
                 .likes(19)
+                .comments(32)
                 .hashtags({"latte", "cappuccino"})
                 .theme("coffee shops")
                 .adress("Forma Cafe")
