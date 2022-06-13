@@ -5,6 +5,7 @@
 #include "Photo_builder.h"
 #include "Live_builder.h"
 #include "Checkin_builder.h"
+#include "Account_factory.h"
 
 void edit_feed(const std::shared_ptr<Account> &a, int b, const int c, const int s) {
     for (const auto &post: a->getPosts()) {
@@ -80,10 +81,10 @@ int main() {
                 .build();
 
 
-        std::shared_ptr<Account> acc1 = std::make_shared<Account>(Account("jane.doe", 1, 1, "none"));
-        std::shared_ptr<Account> acc2 = std::make_shared<Account>(Account("kim_joe", 100, 100, "children"));
-        std::shared_ptr<Account> acc3 = std::make_shared<Account>(Account("bella_", 250000, 12, "fashion"));
-        std::shared_ptr<Account> acc4 = std::make_shared<Account>(Account("travel_", 213214, 2134, "travel"));
+        std::shared_ptr<Account> acc1 = Account_factory::create_kid_account("jane.doe");
+        std::shared_ptr<Account> acc2 = Account_factory::create_fast_account("jim.carry");
+        std::shared_ptr<Account> acc3 = Account_factory::create_fashion_influencer("bella_");
+        std::shared_ptr<Account> acc4 = Account_factory::create_travel_influencer("BackPack_yourlife");
 
 
         std::shared_ptr<Manager<int>> m1 = std::make_shared<Manager<int>>(Manager<int>("Ioana", 771018));
